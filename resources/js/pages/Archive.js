@@ -16,7 +16,7 @@ class Archive extends Component {
     };
 
     // API Endpoint
-    this.api = '/api/v1/todo';
+    this.api = '/api/v1/article';
   }
 
   componentDidMount() {
@@ -60,17 +60,17 @@ class Archive extends Component {
       });
   };
 
-  deleteTodo = (e) => {
+  deleteArticle = (e) => {
     const { key } = e.target.dataset;
-    const { data: todos } = this.state;
+    const { data: articles } = this.state;
 
     Http.delete(`${this.api}/${key}`)
       .then((response) => {
         if (response.status === 204) {
-          const index = todos.findIndex(
-            (todo) => parseInt(todo.id, 10) === parseInt(key, 10),
+          const index = articles.findIndex(
+            (article) => parseInt(article.id, 10) === parseInt(key, 10),
           );
-          const update = [...todos.slice(0, index), ...todos.slice(index + 1)];
+          const update = [...articles.slice(0, index), ...articles.slice(index + 1)];
           this.setState({ data: update });
         }
       })
@@ -81,7 +81,7 @@ class Archive extends Component {
 
   render() {
     const { loading, error, apiMore } = this.state;
-    const todos = Array.from(this.state.data);
+    const articles = Array.from(this.state.data);
 
     return (
       <div className="container py-5">
@@ -101,17 +101,17 @@ class Archive extends Component {
               <th>Status</th>
               <th>Action</th>
             </tr>
-            {todos.map((todo) => (
-              <tr key={todo.id}>
-                <td>{todo.created_at}</td>
-                <td>{todo.value}</td>
-                <td>{todo.status}</td>
+            {articles.map((article) => (
+              <tr key={article.id}>
+                <td>{article.created_at}</td>
+                <td>{article.value}</td>
+                <td>{article.status}</td>
                 <td>
                   <button
                     type="button"
                     className="btn btn-secondary"
-                    onClick={this.deleteTodo}
-                    data-key={todo.id}
+                    onClick={this.deleteArticle}
+                    data-key={article.id}
                   >
                     Delete
                   </button>

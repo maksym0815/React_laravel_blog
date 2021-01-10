@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import ReeValidate from 'ree-validate';
+//import ReeValidate from 'ree-validate';
 import classNames from 'classnames';
 import AuthService from '../services';
 
@@ -11,12 +11,12 @@ class ResetPassword extends Component {
     super(props);
 
     // @TODO Password confirmation validation.
-    this.validator = new ReeValidate({
+    /*this.validator = new ReeValidate({
       password: 'required|min:6',
       password_confirmation: 'required|min:6',
       id: 'required',
       token: 'required',
-    });
+    });*/
 
     this.state = {
       loading: false,
@@ -55,32 +55,32 @@ class ResetPassword extends Component {
     // If a field has a validation error, we'll clear it when corrected.
     const { errors } = this.state;
     if (name in errors) {
-      const validation = this.validator.errors;
+     /* const validation = this.validator.errors;
       this.validator.validate(name, value).then(() => {
         if (!validation.has(name)) {
           delete errors[name];
           this.setState({ errors });
         }
-      });
+      });*/
     }
   };
 
   handleBlur = (e) => {
     const { name, value } = e.target;
-    const validation = this.validator.errors;
+    //const validation = this.validator.errors;
 
     // Avoid validation until input has a value.
     if (value === '') {
       return;
     }
 
-    this.validator.validate(name, value).then(() => {
+    /*this.validator.validate(name, value).then(() => {
       if (validation.has(name)) {
         const { errors } = this.state;
         errors[name] = validation.first(name);
         this.setState({ errors });
       }
-    });
+    });*/
   };
 
   handleSubmit = (e) => {

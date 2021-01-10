@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import ReeValidate from 'ree-validate';
+//import ReeValidate from 'ree-validate';
 import classNames from 'classnames';
 import AuthService from '../services';
 
@@ -10,10 +10,10 @@ class Login extends Component {
   constructor() {
     super();
 
-    this.validator = new ReeValidate({
+    /*this.validator = new ReeValidate({
       email: 'required|email',
       password: 'required|min:6',
-    });
+    });*/
 
     this.state = {
       loading: false,
@@ -34,13 +34,14 @@ class Login extends Component {
     // If a field has a validation error, we'll clear it when corrected.
     const { errors } = this.state;
     if (name in errors) {
+      /*
       const validation = this.validator.errors;
       this.validator.validate(name, value).then(() => {
         if (!validation.has(name)) {
           delete errors[name];
           this.setState({ errors });
         }
-      });
+      });*/
     }
   };
 
@@ -51,7 +52,7 @@ class Login extends Component {
     if (value === '') {
       return;
     }
-
+/*
     const validation = this.validator.errors;
     this.validator.validate(name, value).then(() => {
       if (validation.has(name)) {
@@ -59,7 +60,7 @@ class Login extends Component {
         errors[name] = validation.first(name);
         this.setState({ errors });
       }
-    });
+    });*/
   };
 
   handleSubmit = (e) => {
@@ -72,13 +73,14 @@ class Login extends Component {
 
     // Set response state back to default.
     this.setState({ response: { error: false, message: '' } });
-
+    
+/*
     this.validator.validateAll(credentials).then((success) => {
       if (success) {
         this.setState({ loading: true });
         this.submit(credentials);
       }
-    });
+    });*/
   };
 
   submit(credentials) {

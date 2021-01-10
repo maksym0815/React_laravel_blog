@@ -8,13 +8,13 @@ class Dashboard extends Component {
 
     // Initial state.
     this.state = {
-      todo: null,
+      article: null,
       error: false,
       data: [],
     };
 
     // API endpoint.
-    this.api = '/api/v1/todo';
+    this.api = '/api/v1/article';
   }
 
   componentDidMount() {
@@ -40,20 +40,20 @@ class Dashboard extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { todo } = this.state;
-    this.addTodo(todo);
+    const { article } = this.state;
+    this.addArticle(article);
   };
 
-  addTodo = (todo) => {
-    Http.post(this.api, { value: todo })
+  addArticle = (article) => {
+    Http.post(this.api, { value: article })
       .then(({ data }) => {
         const newItem = {
           id: data.id,
-          value: todo,
+          value: article,
         };
-        const allTodos = [newItem, ...this.state.data];
-        this.setState({ data: allTodos, todo: null });
-        this.todoForm.reset();
+        const allArticles = [newItem, ...this.state.data];
+        this.setState({ data: allArticles, article: null });
+        this.articleForm.reset();
       })
       .catch(() => {
         this.setState({
@@ -62,16 +62,16 @@ class Dashboard extends Component {
       });
   };
 
-  closeTodo = (e) => {
+  closeArticle = (e) => {
     const { key } = e.target.dataset;
-    const { data: todos } = this.state;
+    const { data: articles } = this.state;
 
     Http.patch(`${this.api}/${key}`, { status: 'closed' })
       .then(() => {
-        const updatedTodos = todos.filter(
-          (todo) => todo.id !== parseInt(key, 10),
+        const updatedArticles = articles.filter(
+          (article) => article.id !== parseInt(key, 10),
         );
-        this.setState({ data: updatedTodos });
+        this.setState({ data: updatedArticles });
       })
       .catch(() => {
         this.setState({
@@ -91,15 +91,15 @@ class Dashboard extends Component {
             method="post"
             onSubmit={this.handleSubmit}
             ref={(el) => {
-              this.todoForm = el;
+              this.articleForm = el;
             }}
           >
             <div className="form-group">
-              <label htmlFor="addTodo">Add a New To Do</label>
+              <label htmlFor="addArticle">Add a New To Do</label>
               <div className="d-flex">
                 <input
-                  id="addTodo"
-                  name="todo"
+                  id="addArticle"
+                  name="article"
                   className="form-control mr-3"
                   placeholder="Build a To Do app..."
                   onChange={this.handleChange}
@@ -126,15 +126,15 @@ class Dashboard extends Component {
                 <th>To Do</th>
                 <th>Action</th>
               </tr>
-              {data.map((todo) => (
-                <tr key={todo.id}>
-                  <td>{todo.value}</td>
+              {data.map((article) => (
+                <tr key={article.id}>
+                  <td>{article.value}</td>
                   <td>
                     <button
                       type="button"
                       className="btn btn-secondary"
-                      onClick={this.closeTodo}
-                      data-key={todo.id}
+                      onClick={this.closeArticle}
+                      data-key={article.id}
                     >
                       Close
                     </button>

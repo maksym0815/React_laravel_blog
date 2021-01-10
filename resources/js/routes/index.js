@@ -11,7 +11,8 @@ const Routes = () => (
       {routes.map((route) => {
         if (route.auth && route.fallback) {
           return <SplitRoute key={route.path} {...route} />;
-        } if (route.auth) {
+        } 
+        if (route.auth) {
           return <PrivateRoute key={route.path} {...route} />;
         }
         return <PublicRoute key={route.path} {...route} />;

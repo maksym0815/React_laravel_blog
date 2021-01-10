@@ -22,7 +22,7 @@ class Header extends Component {
     return (
       <header className="d-flex align-items-center justify-content-between">
         <h1 className="logo my-0 font-weight-normal h4">
-          <Link to="/">Laravel React</Link>
+          <Link to="/">Blog App</Link>
         </h1>
 
         {this.props.isAuthenticated && (
@@ -30,7 +30,7 @@ class Header extends Component {
             <Nav>
               <NavItem>
                 <NavLink tag={Link} to="/archive">
-                  Archive
+                  Blog Archive
                 </NavLink>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>

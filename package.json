@@ -20,6 +20,7 @@
         "postcss": "^8.1.14",
         "react": "^16.2.0",
         "react-dom": "^16.2.0",
+        "ree-validate": "^3.3.2",
         "resolve-url-loader": "^3.1.2",
         "sass": "^1.15.2",
         "sass-loader": "^8.0.0",
@@ -27,13 +28,13 @@
     },
     "dependencies": {
         "@babel/plugin-proposal-class-properties": "^7.12.1",
+        "classnames": "^2.2.6",
         "react-redux": "^7.2.2",
         "react-router": "^5.2.0",
         "react-router-dom": "^5.2.0",
         "reactstrap": "^8.8.1",
         "redux": "^4.0.5",
         "redux-persist": "^6.0.0",
-        "redux-thunk": "^2.3.0",
-        "ree-validate": "^3.3.2"
+        "redux-thunk": "^2.3.0"
     }
 }

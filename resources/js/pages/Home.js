@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import ReeValidate from 'ree-validate';
+//import ReeValidate from 'ree-validate';
 import classNames from 'classnames';
 import AuthService from '../services';
 
@@ -10,10 +10,10 @@ class Home extends Component {
   constructor() {
     super();
 
-    this.validator = new ReeValidate({
+    /*this.validator = new ReeValidate({
       email: 'required|email',
       password: 'required|min:6',
-    });
+    });*/
 
     this.state = {
       loading: false,
@@ -34,13 +34,14 @@ class Home extends Component {
     // If a field has a validation error, we'll clear it when corrected.
     const { errors } = this.state;
     if (name in errors) {
+      /*
       const validation = this.validator.errors;
       this.validator.validate(name, value).then(() => {
         if (!validation.has(name)) {
           delete errors[name];
           this.setState({ errors });
         }
-      });
+      });*/
     }
   };
 
@@ -51,7 +52,7 @@ class Home extends Component {
     if (value === '') {
       return;
     }
-
+  /*
     const validation = this.validator.errors;
     this.validator.validate(name, value).then(() => {
       if (validation.has(name)) {
@@ -59,7 +60,7 @@ class Home extends Component {
         errors[name] = validation.first(name);
         this.setState({ errors });
       }
-    });
+    });*/
   };
 
   handleSubmit = (e) => {
@@ -69,13 +70,13 @@ class Home extends Component {
       email,
       password,
     };
-
+    /*
     this.validator.validateAll(credentials).then((success) => {
       if (success) {
         this.setState({ loading: true });
         this.submit(credentials);
       }
-    });
+    });*/
   };
 
   submit = (credentials) => {
@@ -109,18 +110,13 @@ class Home extends Component {
             <div className="row">
               <div className="section-about col-lg-6 mb-4 mb-lg-0">
                 <div>
-                  <h2>Example To Do App</h2>
+                  <h2>Blog App - Sample</h2>
                   <p>
-                    Built with Laravel and React. Includes JWT auth,
+                    Built with Laravel, React and MongoDB. Includes JWT auth,
                     registration, login, routing and tests.
-                    {' '}
-                    <a href="https://wptheming.com/2019/02/building-a-react-app-on-laravel/">
-                      Learn more
-                    </a>
-                    .
                   </p>
                   <p>
-                    <a href="https://github.com/devinsays/laravel-react-bootstrap">
+                    <a href="https://github.com/danielhdz23/blog-laravel-react-mongodb">
                       Source code and documentation on GitHub.
                     </a>
                   </p>
