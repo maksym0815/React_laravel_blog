@@ -1,134 +1,99 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-//import ReeValidate from 'ree-validate';
 import classNames from 'classnames';
 import AuthService from '../services';
+import { useForm } from "react-hook-form";
 
-class ResetPassword extends Component {
-  constructor(props) {
-    super(props);
+const ResetPassword = (props) => {
+  const { register, handleSubmit, watch, errors } = useForm();
+  const [stateForm, setStateForm] = useState({ email: '', password: '', password_confirmation: '', id: '', token: ''})
+  const [loading, setLoading] = useState(false)
+  const [response, setResponse] = useState({error: false, message: ''})
+  const [success, setSuccess] = useState(false)
 
-    // @TODO Password confirmation validation.
-    /*this.validator = new ReeValidate({
-      password: 'required|min:6',
-      password_confirmation: 'required|min:6',
-      id: 'required',
-      token: 'required',
-    });*/
+  // If user is already authenticated we redirect to entry location.
+  const { from } = props.location.state || { from: { pathname: '/' } };
+  const { isAuthenticated } = props;
 
-    this.state = {
-      loading: false,
-      id: this.getResetId(),
-      token: this.getResetToken(),
-      password: '',
-      password_confirmation: '',
-      errors: {},
-      response: {
-        error: false,
-        message: '',
-      },
-    };
-  }
-
-  getResetId() {
-    const params = new URLSearchParams(this.props.location.search);
+  const getResetId = ()=> {
+    const params = new URLSearchParams(props.location.search);
+    console.log(params);
     if (params.has('id')) {
       return params.get('id');
     }
     return '';
   }
 
-  getResetToken() {
-    const params = new URLSearchParams(this.props.location.search);
+  const getResetToken = ()=> {
+    const params = new URLSearchParams(props.location.search);
     if (params.has('token')) {
       return params.get('token');
     }
-    return '';
+    const qookie =  document.cookie.split(';'); 
+    console.log(qookie)
+    return document.cookie.replace('XSRF-TOKEN=','');
   }
 
-  handleChange = (e) => {
+   const handleChange = (e) => {
+        const { name, value } = e.target;
+        setStateForm({
+            ...stateForm,
+            [ name ]: value
+        });
+      };
+
+  const handleBlur = (e) => {
     const { name, value } = e.target;
-    this.setState({ [name]: value });
-
-    // If a field has a validation error, we'll clear it when corrected.
-    const { errors } = this.state;
-    if (name in errors) {
-     /* const validation = this.validator.errors;
-      this.validator.validate(name, value).then(() => {
-        if (!validation.has(name)) {
-          delete errors[name];
-          this.setState({ errors });
-        }
-      });*/
-    }
-  };
-
-  handleBlur = (e) => {
-    const { name, value } = e.target;
-    //const validation = this.validator.errors;
-
     // Avoid validation until input has a value.
     if (value === '') {
       return;
     }
-
-    /*this.validator.validate(name, value).then(() => {
-      if (validation.has(name)) {
-        const { errors } = this.state;
-        errors[name] = validation.first(name);
-        this.setState({ errors });
-      }
-    });*/
   };
 
-  handleSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = () => {
+    const { email, password, password_confirmation } = stateForm;
+    
     const credentials = {
-      id: this.state.id,
-      token: this.state.token,
-      password: this.state.password,
-      password_confirmation: this.state.password_confirmation,
+      email: email,
+      id: getResetId(),
+      token: getResetToken(),
+      password: password,
+      password_confirmation: password_confirmation,
     };
-
-    this.setState({ loading: true });
-
-    this.props
-      .dispatch(AuthService.updatePassword(credentials))
-      .then((res) => {
-        this.passwordResetForm.reset();
-        const response = {
-          error: false,
-          message: res.message,
-        };
-        this.setState({ loading: false, success: true, response });
-      })
-      .catch((err) => {
-        this.passwordResetForm.reset();
-        const errors = Object.values(err.errors);
-        errors.join(' ');
-        const response = {
-          error: true,
-          message: errors,
-        };
-        this.setState({ response });
-        this.setState({ loading: false });
-      });
+    console.log(credentials);
+    setLoading(true);
+    submit(credentials);
   };
 
-  render() {
-    // If user is already authenticated we redirect to entry location.
-    const { from } = this.props.location.state || { from: { pathname: '/' } };
-    const { isAuthenticated } = this.props;
-    if (isAuthenticated) {
-      return <Redirect to={from} />;
-    }
+  const submit = (credentials) => {
+    props
+    .dispatch(AuthService.updatePassword(credentials))
+    .then((res) => {
+      const responses = {
+        error: false,
+        message: res.message,
+      };
+      setResponse(responses)
+      setLoading(false)
+      setSuccess(true)
+    })
+    .catch((err) => {
+      const errorss = Object.values(err.errors);
+      errorss.join(' ');
+      const responses = {
+        error: true,
+        message: errorss,
+      };
+      setResponse(responses)
+      setLoading(false)
+    });
+};
 
-    const { response, errors, loading } = this.state;
-
-    return (
-      <div>
+  return (
+    <>
+        {isAuthenticated && <Redirect to={from}/> } 
         <div className="d-flex flex-column flex-row align-content-center py-5">
           <div className="container">
             <div className="row">
@@ -137,7 +102,7 @@ class ResetPassword extends Component {
 
                 <div className="card-login card mb-3">
                   <div className="card-body">
-                    {this.state.success && (
+                    {success && (
                       <div
                         className="alert alert-success text-center"
                         role="alert"
@@ -155,15 +120,30 @@ class ResetPassword extends Component {
                       </div>
                     )}
 
-                    {!this.state.success && (
+                    {!success && (
                       <form
                         className="form-horizontal"
                         method="POST"
-                        onSubmit={this.handleSubmit}
-                        ref={(el) => {
-                          this.passwordResetForm = el;
-                        }}
+                        onSubmit={handleSubmit(onSubmit)}
                       >
+                      <div className="form-group">
+                        <label htmlFor="email">Email Address</label>
+                        <input
+                          id="email"
+                          type="email"
+                          name="email"
+                          className={classNames('form-control', {
+                            'is-invalid': 'email' in errors,
+                          })}
+                          placeholder="Enter email"
+                          required
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          disabled={loading}
+                          ref={register({ required: true })}
+                        />
+                        {errors.email && <span className="invalid-feedback">This field is required</span>}
+                      </div>
                         <div className="form-group">
                           <label htmlFor="password">Password</label>
                           <input
@@ -175,14 +155,11 @@ class ResetPassword extends Component {
                             name="password"
                             placeholder="Enter password"
                             required
-                            onChange={this.handleChange}
-                            onBlur={this.handleBlur}
-                          />
-                          {'password' in errors && (
-                            <div className="invalid-feedback">
-                              {errors.password}
-                            </div>
-                          )}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            ref={register({ required: true })}
+                        />
+                        {errors.password && <span className="invalid-feedback">This field is required</span>}
                         </div>
 
                         <div className="form-group">
@@ -198,14 +175,11 @@ class ResetPassword extends Component {
                             name="password_confirmation"
                             placeholder="Confirm password"
                             required
-                            onChange={this.handleChange}
-                            onBlur={this.handleBlur}
-                          />
-                          {'password_confirmation' in errors && (
-                            <div className="invalid-feedback">
-                              {errors.password_confirmation}
-                            </div>
-                          )}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            ref={register({ required: true })}
+                        />
+                        {errors.password_confirmation && <span className="invalid-feedback">This field is required</span>}
                         </div>
 
                         <div className="form-group text-center">
@@ -226,9 +200,8 @@ class ResetPassword extends Component {
             </div>
           </div>
         </div>
-      </div>
-    );
-  }
+    </>
+  )
 }
 
 ResetPassword.propTypes = {

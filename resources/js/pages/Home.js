@@ -10,8 +10,7 @@ const Home = (props) => {
     const { register, handleSubmit, watch, errors } = useForm();
     const [stateForm, setStateForm] = useState({ email: '', password: ''})
     const [loading, setLoading] = useState(false)
-    //const [errors, setErrors] = useState({})
-    const [response, setResponse] = useState({error: false, message: '',})
+    const [response, setResponse] = useState({error: false, message: ''})
 
     // If user is already authenticated we redirect to entry location.
     const { from } = props.location.state || { from: { pathname: '/' } };
@@ -27,20 +26,10 @@ const Home = (props) => {
     
      const handleBlur = (e) => {
         const { name, value } = e.target;
-
         // Avoid validation until input has a value.
         if (value === '') {
           return;
         }
-      /*
-        const validation = this.validator.errors;
-        this.validator.validate(name, value).then(() => {
-          if (validation.has(name)) {
-            const { errors } = this.state;
-            errors[name] = validation.first(name);
-            this.setState({ errors });
-          }
-        });*/
       };
     
      const onSubmit = () => {

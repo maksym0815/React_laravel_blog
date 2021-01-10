@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
@@ -12,45 +12,42 @@ import {
 } from 'reactstrap';
 import * as actions from '../store/actions';
 
-class Header extends Component {
-  handleLogout = (e) => {
-    e.preventDefault();
-    this.props.dispatch(actions.authLogout());
-  };
+const Header = (props) => {
+  const handleLogout = (e) => {
+      e.preventDefault();
+      props.dispatch(actions.authLogout());
+    };
+  return (
+    <header className="d-flex align-items-center justify-content-between">
+    <h1 className="logo my-0 font-weight-normal h4">
+      <Link to="/">Blog App</Link>
+    </h1>
 
-  render() {
-    return (
-      <header className="d-flex align-items-center justify-content-between">
-        <h1 className="logo my-0 font-weight-normal h4">
-          <Link to="/">Blog App</Link>
-        </h1>
-
-        {this.props.isAuthenticated && (
-          <div className="navigation d-flex justify-content-end">
-            <Nav>
-              <NavItem>
-                <NavLink tag={Link} to="/archive">
-                  Blog Archive
-                </NavLink>
-              </NavItem>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Account
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>Settings</DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem onClick={this.handleLogout}>
-                    Log Out
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-            </Nav>
-          </div>
-        )}
-      </header>
-    );
-  }
+    {props.isAuthenticated && (
+      <div className="navigation d-flex justify-content-end">
+        <Nav>
+          <NavItem>
+            <NavLink tag={Link} to="/archive">
+              Blog Archive
+            </NavLink>
+          </NavItem>
+          <UncontrolledDropdown nav inNavbar>
+            <DropdownToggle nav caret>
+              Account
+            </DropdownToggle>
+            <DropdownMenu right>
+              <DropdownItem>Settings</DropdownItem>
+              <DropdownItem divider />
+              <DropdownItem onClick={handleLogout}>
+                Log Out
+              </DropdownItem>
+            </DropdownMenu>
+          </UncontrolledDropdown>
+        </Nav>
+      </div>
+    )}
+  </header>
+  )
 }
 
 const mapStateToProps = (state) => ({

@@ -2206,32 +2206,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/DropdownMenu.js");
 /* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/DropdownItem.js");
 /* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/actions */ "./resources/js/store/actions/index.js");
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-
-
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -2239,78 +2213,53 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var Header = /*#__PURE__*/function (_Component) {
-  _inherits(Header, _Component);
 
-  var _super = _createSuper(Header);
+var Header = function Header(props) {
+  var handleLogout = function handleLogout(e) {
+    e.preventDefault();
+    props.dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_3__.authLogout());
+  };
 
-  function Header() {
-    var _this;
-
-    _classCallCheck(this, Header);
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _super.call.apply(_super, [this].concat(args));
-
-    _defineProperty(_assertThisInitialized(_this), "handleLogout", function (e) {
-      e.preventDefault();
-
-      _this.props.dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_3__.authLogout());
-    });
-
-    return _this;
-  }
-
-  _createClass(Header, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("header", {
-        className: "d-flex align-items-center justify-content-between",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h1", {
-          className: "logo my-0 font-weight-normal h4",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-            to: "/",
-            children: "Blog App"
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("header", {
+    className: "d-flex align-items-center justify-content-between",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h1", {
+      className: "logo my-0 font-weight-normal h4",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+        to: "/",
+        children: "Blog App"
+      })
+    }), props.isAuthenticated && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+      className: "navigation d-flex justify-content-end",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_6__.default, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_7__.default, {
+            tag: react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link,
+            to: "/archive",
+            children: "Blog Archive"
           })
-        }), this.props.isAuthenticated && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-          className: "navigation d-flex justify-content-end",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.default, {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_6__.default, {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_7__.default, {
-                tag: react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link,
-                to: "/archive",
-                children: "Blog Archive"
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_8__.default, {
-              nav: true,
-              inNavbar: true,
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_9__.default, {
-                nav: true,
-                caret: true,
-                children: "Account"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_10__.default, {
-                right: true,
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_11__.default, {
-                  children: "Settings"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_11__.default, {
-                  divider: true
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_11__.default, {
-                  onClick: this.handleLogout,
-                  children: "Log Out"
-                })]
-              })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_8__.default, {
+          nav: true,
+          inNavbar: true,
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_9__.default, {
+            nav: true,
+            caret: true,
+            children: "Account"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_10__.default, {
+            right: true,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_11__.default, {
+              children: "Settings"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_11__.default, {
+              divider: true
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_11__.default, {
+              onClick: handleLogout,
+              children: "Log Out"
             })]
-          })
+          })]
         })]
-      });
-    }
-  }]);
-
-  return Header;
-}(react__WEBPACK_IMPORTED_MODULE_1__.Component);
+      })
+    })]
+  });
+};
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
@@ -2827,286 +2776,206 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services */ "./resources/js/services/index.js");
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.js");
 
 
 
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
- //import ReeValidate from 'ree-validate';
 
 
 
 
-var ForgotPassword = /*#__PURE__*/function (_Component) {
-  _inherits(ForgotPassword, _Component);
-
-  var _super = _createSuper(ForgotPassword);
-
-  function ForgotPassword() {
-    var _this;
-
-    _classCallCheck(this, ForgotPassword);
-
-    _this = _super.call(this);
-    /* this.validator = new ReeValidate({
-       email: 'required|email',
-     });*/
-
-    _defineProperty(_assertThisInitialized(_this), "handleChange", function (e) {
-      var _e$target = e.target,
-          name = _e$target.name,
-          value = _e$target.value;
-
-      _this.setState(_defineProperty({}, name, value)); // If a field has a validation error, we'll clear it when corrected.
 
 
-      var errors = _this.state.errors;
+var ForgotPassword = function ForgotPassword(props) {
+  var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_6__.useForm)(),
+      register = _useForm.register,
+      handleSubmit = _useForm.handleSubmit,
+      watch = _useForm.watch,
+      errors = _useForm.errors;
 
-      if (name in errors) {
-        /*
-        const validation = this.validator.errors;
-        this.validator.validate(name, value).then(() => {
-          if (!validation.has(name)) {
-            delete errors[name];
-            this.setState({ errors });
-          }
-        });*/
-      }
-    });
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
+    email: '',
+    password: ''
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      stateForm = _useState2[0],
+      setStateForm = _useState2[1];
 
-    _defineProperty(_assertThisInitialized(_this), "handleBlur", function (e) {
-      var _e$target2 = e.target,
-          name = _e$target2.name,
-          value = _e$target2.value; //const validation = this.validator.errors;
-      // Avoid validation until input has a value.
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      loading = _useState4[0],
+      setLoading = _useState4[1];
 
-      if (value === '') {
-        return;
-      }
-      /*this.validator.validate(name, value).then(() => {
-        if (validation.has(name)) {
-          const { errors } = this.state;
-          errors[name] = validation.first(name);
-          this.setState({ errors });
-        }
-      });*/
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
+    error: false,
+    message: ''
+  }),
+      _useState6 = _slicedToArray(_useState5, 2),
+      response = _useState6[0],
+      setResponse = _useState6[1];
 
-    });
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+      _useState8 = _slicedToArray(_useState7, 2),
+      success = _useState8[0],
+      setSuccess = _useState8[1]; // If user is already authenticated we redirect to entry location.
 
-    _defineProperty(_assertThisInitialized(_this), "handleSubmit", function (e) {
-      e.preventDefault();
-      var credentials = {
-        email: _this.state.email
-      }; // Set response state back to default.
 
-      _this.setState({
-        response: {
-          error: false,
-          message: ''
-        }
-      });
-      /*this.validator.validateAll(credentials).then((success) => {
-        if (success) {
-          this.setState({ loading: true });
-          this.submit(credentials);
-        }
-      });*/
-
-    });
-
-    _this.state = {
-      loading: false,
-      email: '',
-      errors: {},
-      response: {
-        error: false,
-        message: ''
-      }
-    };
-    return _this;
-  }
-
-  _createClass(ForgotPassword, [{
-    key: "submit",
-    value: function submit(credentials) {
-      var _this2 = this;
-
-      this.props.dispatch(_services__WEBPACK_IMPORTED_MODULE_5__.default.resetPassword(credentials)).then(function (res) {
-        _this2.forgotPasswordForm.reset();
-
-        var response = {
-          error: false,
-          message: res.message
-        };
-
-        _this2.setState({
-          loading: false,
-          success: true,
-          response: response
-        });
-      })["catch"](function (err) {
-        _this2.forgotPasswordForm.reset();
-
-        var errors = Object.values(err.errors);
-        errors.join(' ');
-        var response = {
-          error: true,
-          message: errors
-        };
-
-        _this2.setState({
-          response: response
-        });
-
-        _this2.setState({
-          loading: false
-        });
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this3 = this;
-
-      // If user is already authenticated we redirect to entry location.
-      var _ref = this.props.location.state || {
-        from: {
-          pathname: '/'
-        }
-      },
-          from = _ref.from;
-
-      var isAuthenticated = this.props.isAuthenticated;
-
-      if (isAuthenticated) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Redirect, {
-          to: from
-        });
-      }
-
-      var _this$state = this.state,
-          response = _this$state.response,
-          errors = _this$state.errors,
-          loading = _this$state.loading;
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-          className: "d-flex flex-column flex-row align-content-center py-5",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-            className: "container",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-              className: "row",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                className: "section-login col-lg-6 ml-auto mr-auto",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h4", {
-                  children: "Request Password Reset"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                  className: "card-login card mb-3",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                    className: "card-body",
-                    children: [this.state.success && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                      className: "alert alert-success text-center",
-                      role: "alert",
-                      children: "A password reset link has been sent!"
-                    }), response.error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                      className: "alert alert-danger text-center",
-                      role: "alert",
-                      children: response.message
-                    }), !this.state.success && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", {
-                      className: "form-horizontal",
-                      method: "POST",
-                      onSubmit: this.handleSubmit,
-                      ref: function ref(el) {
-                        _this3.forgotPasswordForm = el;
-                      },
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                        className: "form-group",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
-                          htmlFor: "email",
-                          children: "Email Address"
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
-                          id: "email",
-                          type: "email",
-                          name: "email",
-                          className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('form-control', {
-                            'is-invalid': 'email' in errors
-                          }),
-                          placeholder: "Enter email",
-                          required: true,
-                          onChange: this.handleChange,
-                          onBlur: this.handleBlur,
-                          disabled: loading
-                        }), 'email' in errors && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                          className: "invalid-feedback",
-                          children: errors.email
-                        })]
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                        className: "form-group text-center",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
-                          type: "submit",
-                          className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('btn btn-primary', {
-                            'btn-loading': loading
-                          }),
-                          children: "Send Password Reset Email"
-                        })
-                      })]
-                    })]
-                  })
-                })]
-              })
-            })
-          })
-        })
-      });
-    }
-  }]);
-
-  return ForgotPassword;
-}(react__WEBPACK_IMPORTED_MODULE_1__.Component);
-
-ForgotPassword.defaultProps = {
-  location: {
-    state: {
+  var _ref = props.location.state || {
+    from: {
       pathname: '/'
     }
-  }
-};
-ForgotPassword.propTypes = {
-  dispatch: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().func.isRequired),
-  isAuthenticated: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool.isRequired),
-  location: prop_types__WEBPACK_IMPORTED_MODULE_2___default().shape({
-    state: {
-      pathname: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string)
+  },
+      from = _ref.from;
+
+  var isAuthenticated = props.isAuthenticated;
+
+  var handleChange = function handleChange(e) {
+    var _e$target = e.target,
+        name = _e$target.name,
+        value = _e$target.value;
+    setStateForm(_objectSpread(_objectSpread({}, stateForm), {}, _defineProperty({}, name, value)));
+  };
+
+  var handleBlur = function handleBlur(e) {
+    var _e$target2 = e.target,
+        name = _e$target2.name,
+        value = _e$target2.value; // Avoid validation until input has a value.
+
+    if (value === '') {
+      return;
     }
-  })
+  };
+
+  var onSubmit = function onSubmit() {
+    var email = stateForm.email;
+    var credentials = {
+      email: email
+    };
+    setLoading(true);
+    submit(credentials);
+  };
+
+  var submit = function submit(credentials) {
+    props.dispatch(_services__WEBPACK_IMPORTED_MODULE_5__.default.resetPassword(credentials)).then(function (res) {
+      var responses = {
+        error: false,
+        message: res.message
+      };
+      setResponse(responses);
+      setLoading(false);
+      setSuccess(success);
+    })["catch"](function (err) {
+      var errorss = Object.values(err.errors);
+      errorss.join(' ');
+      var responses = {
+        error: true,
+        message: errorss
+      };
+      setResponse(responses);
+      setLoading(false);
+    });
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    children: [isAuthenticated && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Redirect, {
+      to: from
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+      className: "d-flex flex-column flex-row align-content-center py-5",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+        className: "container",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+          className: "row",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+            className: "section-login col-lg-6 ml-auto mr-auto",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h4", {
+              children: "Request Password Reset"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+              className: "card-login card mb-3",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                className: "card-body",
+                children: [success && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                  className: "alert alert-success text-center",
+                  role: "alert",
+                  children: "A password reset link has been sent!"
+                }), response.error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                  className: "alert alert-danger text-center",
+                  role: "alert",
+                  children: response.message
+                }), !success && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", {
+                  className: "form-horizontal",
+                  method: "POST",
+                  onSubmit: handleSubmit(onSubmit),
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                    className: "form-group",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+                      htmlFor: "email",
+                      children: "Email Address"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                      id: "email",
+                      type: "email",
+                      name: "email",
+                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('form-control', {
+                        'is-invalid': 'email' in errors
+                      }),
+                      placeholder: "Enter email",
+                      required: true,
+                      onChange: handleChange,
+                      onBlur: handleBlur,
+                      disabled: loading,
+                      ref: register({
+                        required: true
+                      })
+                    }), errors.email && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                      className: "invalid-feedback",
+                      children: "This field is required"
+                    })]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                    className: "form-group text-center",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+                      type: "submit",
+                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('btn btn-primary', {
+                        'btn-loading': loading
+                      }),
+                      children: "Send Password Reset Email"
+                    })
+                  })]
+                })]
+              })
+            })]
+          })
+        })
+      })
+    })]
+  });
+};
+
+ForgotPassword.propTypes = {
+  isAuthenticated: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool.isRequired)
 };
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -3189,8 +3058,7 @@ var Home = function Home(props) {
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
       _useState4 = _slicedToArray(_useState3, 2),
       loading = _useState4[0],
-      setLoading = _useState4[1]; //const [errors, setErrors] = useState({})
-
+      setLoading = _useState4[1];
 
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
     error: false,
@@ -3225,16 +3093,6 @@ var Home = function Home(props) {
     if (value === '') {
       return;
     }
-    /*
-      const validation = this.validator.errors;
-      this.validator.validate(name, value).then(() => {
-        if (validation.has(name)) {
-          const { errors } = this.state;
-          errors[name] = validation.first(name);
-          this.setState({ errors });
-        }
-      });*/
-
   };
 
   var onSubmit = function onSubmit() {
@@ -3412,300 +3270,227 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services */ "./resources/js/services/index.js");
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.js");
 
 
 
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
- //import ReeValidate from 'ree-validate';
 
 
 
 
-var Login = /*#__PURE__*/function (_Component) {
-  _inherits(Login, _Component);
-
-  var _super = _createSuper(Login);
-
-  function Login() {
-    var _this;
-
-    _classCallCheck(this, Login);
-
-    _this = _super.call(this);
-    /*this.validator = new ReeValidate({
-      email: 'required|email',
-      password: 'required|min:6',
-    });*/
-
-    _defineProperty(_assertThisInitialized(_this), "handleChange", function (e) {
-      var _e$target = e.target,
-          name = _e$target.name,
-          value = _e$target.value;
-
-      _this.setState(_defineProperty({}, name, value)); // If a field has a validation error, we'll clear it when corrected.
 
 
-      var errors = _this.state.errors;
+var Login = function Login(props) {
+  var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_6__.useForm)(),
+      register = _useForm.register,
+      handleSubmit = _useForm.handleSubmit,
+      watch = _useForm.watch,
+      errors = _useForm.errors;
 
-      if (name in errors) {
-        /*
-        const validation = this.validator.errors;
-        this.validator.validate(name, value).then(() => {
-          if (!validation.has(name)) {
-            delete errors[name];
-            this.setState({ errors });
-          }
-        });*/
-      }
-    });
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
+    email: '',
+    password: ''
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      stateForm = _useState2[0],
+      setStateForm = _useState2[1];
 
-    _defineProperty(_assertThisInitialized(_this), "handleBlur", function (e) {
-      var _e$target2 = e.target,
-          name = _e$target2.name,
-          value = _e$target2.value; // Avoid validation until input has a value.
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      loading = _useState4[0],
+      setLoading = _useState4[1];
 
-      if (value === '') {
-        return;
-      }
-      /*
-          const validation = this.validator.errors;
-          this.validator.validate(name, value).then(() => {
-            if (validation.has(name)) {
-              const { errors } = this.state;
-              errors[name] = validation.first(name);
-              this.setState({ errors });
-            }
-          });*/
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
+    error: false,
+    message: ''
+  }),
+      _useState6 = _slicedToArray(_useState5, 2),
+      response = _useState6[0],
+      setResponse = _useState6[1]; // If user is already authenticated we redirect to entry location.
 
-    });
 
-    _defineProperty(_assertThisInitialized(_this), "handleSubmit", function (e) {
-      e.preventDefault();
-      var _this$state = _this.state,
-          email = _this$state.email,
-          password = _this$state.password;
-      var credentials = {
-        email: email,
-        password: password
-      }; // Set response state back to default.
-
-      _this.setState({
-        response: {
-          error: false,
-          message: ''
-        }
-      });
-      /*
-          this.validator.validateAll(credentials).then((success) => {
-            if (success) {
-              this.setState({ loading: true });
-              this.submit(credentials);
-            }
-          });*/
-
-    });
-
-    _this.state = {
-      loading: false,
-      email: '',
-      password: '',
-      errors: {},
-      response: {
-        error: false,
-        message: ''
-      }
-    };
-    return _this;
-  }
-
-  _createClass(Login, [{
-    key: "submit",
-    value: function submit(credentials) {
-      var _this2 = this;
-
-      var dispatch = this.props.dispatch;
-      dispatch(_services__WEBPACK_IMPORTED_MODULE_5__.default.login(credentials))["catch"](function (err) {
-        _this2.loginForm.reset();
-
-        var errors = Object.values(err.errors);
-        errors.join(' ');
-        var response = {
-          error: true,
-          message: errors
-        };
-
-        _this2.setState({
-          response: response
-        });
-
-        _this2.setState({
-          loading: false
-        });
-      });
+  var _ref = props.location.state || {
+    from: {
+      pathname: '/'
     }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this3 = this;
+  },
+      from = _ref.from;
 
-      // If user is already authenticated we redirect to entry location.
-      var state = this.props.location;
+  var isAuthenticated = props.isAuthenticated;
 
-      var _ref = state || {
-        from: {
-          pathname: '/'
-        }
-      },
-          from = _ref.from;
+  var handleChange = function handleChange(e) {
+    var _e$target = e.target,
+        name = _e$target.name,
+        value = _e$target.value;
+    setStateForm(_objectSpread(_objectSpread({}, stateForm), {}, _defineProperty({}, name, value)));
+  };
 
-      var isAuthenticated = this.props.isAuthenticated;
+  var handleBlur = function handleBlur(e) {
+    var _e$target2 = e.target,
+        name = _e$target2.name,
+        value = _e$target2.value; // Avoid validation until input has a value.
 
-      if (isAuthenticated) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Redirect, {
-          to: from
-        });
-      }
+    if (value === '') {
+      return;
+    }
+  };
 
-      var _this$state2 = this.state,
-          response = _this$state2.response,
-          errors = _this$state2.errors,
-          loading = _this$state2.loading;
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+  var onSubmit = function onSubmit() {
+    var email = stateForm.email,
+        password = stateForm.password;
+    var credentials = {
+      email: email,
+      password: password
+    };
+    setLoading(true);
+    submit(credentials);
+  };
+
+  var submit = function submit(credentials) {
+    props.dispatch(_services__WEBPACK_IMPORTED_MODULE_5__.default.login(credentials))["catch"](function (err) {
+      var errorsCredentials = Object.values(err.errors);
+      errors.join(' ');
+      var responses = {
+        error: true,
+        message: errorsCredentials
+      };
+      setResponse(responses);
+      setLoading(false);
+    });
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    children: [isAuthenticated && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Redirect, {
+      to: from
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+      className: "d-flex flex-column flex-row align-content-center py-5",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+        className: "container",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-          className: "d-flex flex-column flex-row align-content-center py-5",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-            className: "container",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-              className: "row",
+          className: "row",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+            className: "section-login col-lg-6 ml-auto mr-auto",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h4", {
+              children: "Log in to the App"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+              className: "card-login card mb-3",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                className: "section-login col-lg-6 ml-auto mr-auto",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h4", {
-                  children: "Log in to the App"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                  className: "card-login card mb-3",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                    className: "card-body",
-                    children: [response.error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                      className: "alert alert-danger text-center",
-                      role: "alert",
-                      children: "Credentials were incorrect. Try again!"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", {
-                      className: "form-horizontal",
-                      method: "POST",
-                      onSubmit: this.handleSubmit,
-                      ref: function ref(el) {
-                        _this3.loginForm = el;
-                      },
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                        className: "form-group",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("label", {
-                          htmlFor: "email",
-                          children: ["Email Address", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
-                            id: "email",
-                            type: "email",
-                            name: "email",
-                            className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('form-control', {
-                              'is-invalid': 'email' in errors
-                            }),
-                            placeholder: "Enter email",
-                            required: true,
-                            onChange: this.handleChange,
-                            onBlur: this.handleBlur,
-                            disabled: loading
-                          })]
-                        }), 'email' in errors && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                          className: "invalid-feedback",
-                          children: errors.email
-                        })]
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                        className: "form-group",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("label", {
-                          htmlFor: "password",
-                          children: ["Password", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
-                            id: "password",
-                            type: "password",
-                            className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('form-control', {
-                              'is-invalid': 'password' in errors
-                            }),
-                            name: "password",
-                            placeholder: "Enter password",
-                            required: true,
-                            onChange: this.handleChange,
-                            onBlur: this.handleBlur,
-                            disabled: loading
-                          })]
-                        }), 'password' in errors && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                          className: "invalid-feedback",
-                          children: errors.password
-                        })]
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                        className: "form-group text-center",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
-                          type: "submit",
-                          className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('btn btn-primary', {
-                            'btn-loading': loading
-                          }),
-                          children: "Sign In"
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                        className: "login-invite-text text-center",
-                        children: ["No account?", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
-                          to: "/register",
-                          href: "/register",
-                          children: "Register"
-                        }), "."]
-                      })]
+                className: "card-body",
+                children: [response.error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                  className: "alert alert-danger text-center",
+                  role: "alert",
+                  children: "Credentials were incorrect. Try again!"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", {
+                  className: "form-horizontal",
+                  method: "POST",
+                  onSubmit: handleSubmit(onSubmit),
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                    className: "form-group",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+                      htmlFor: "email",
+                      children: "Email Address "
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                      id: "email",
+                      type: "email",
+                      name: "email",
+                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('form-control', {
+                        'is-invalid': 'email' in errors
+                      }),
+                      placeholder: "Enter email",
+                      required: true,
+                      onChange: handleChange,
+                      onBlur: handleBlur,
+                      disabled: loading,
+                      ref: register({
+                        required: true
+                      })
+                    }), errors.email && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                      className: "invalid-feedback",
+                      children: "This field is required"
                     })]
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                  className: "password-reset-link text-center",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
-                    to: "/forgot-password",
-                    href: "/forgot-password",
-                    children: "Forgot Your Password?"
-                  })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                    className: "form-group",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+                      htmlFor: "password",
+                      children: "Password "
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                      id: "password",
+                      type: "password",
+                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('form-control', {
+                        'is-invalid': 'password' in errors
+                      }),
+                      name: "password",
+                      placeholder: "Enter password",
+                      required: true,
+                      onChange: handleChange,
+                      onBlur: handleBlur,
+                      disabled: loading,
+                      ref: register({
+                        required: true
+                      })
+                    }), errors.password && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                      className: "invalid-feedback",
+                      children: "This field is required"
+                    })]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                    className: "form-group text-center",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+                      type: "submit",
+                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('btn btn-primary', {
+                        'btn-loading': loading
+                      }),
+                      children: "Sign In"
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                    className: "login-invite-text text-center",
+                    children: ["No account?", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
+                      to: "/register",
+                      href: "/register",
+                      children: "Register"
+                    }), "."]
+                  })]
                 })]
               })
-            })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+              className: "password-reset-link text-center",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
+                to: "/forgot-password",
+                href: "/forgot-password",
+                children: "Forgot Your Password?"
+              })
+            })]
           })
         })
-      });
-    }
-  }]);
-
-  return Login;
-}(react__WEBPACK_IMPORTED_MODULE_1__.Component);
+      })
+    })]
+  });
+};
 
 Login.defaultProps = {
   location: {
@@ -3716,12 +3501,7 @@ Login.defaultProps = {
 };
 Login.propTypes = {
   dispatch: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().func.isRequired),
-  isAuthenticated: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool.isRequired),
-  location: prop_types__WEBPACK_IMPORTED_MODULE_2___default().shape({
-    state: {
-      pathname: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string)
-    }
-  })
+  isAuthenticated: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool.isRequired)
 };
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -4093,305 +3873,282 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services */ "./resources/js/services/index.js");
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.js");
 
 
 
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
- //import ReeValidate from 'ree-validate';
 
 
 
 
-var ResetPassword = /*#__PURE__*/function (_Component) {
-  _inherits(ResetPassword, _Component);
-
-  var _super = _createSuper(ResetPassword);
-
-  function ResetPassword(props) {
-    var _this;
-
-    _classCallCheck(this, ResetPassword);
-
-    _this = _super.call(this, props); // @TODO Password confirmation validation.
-
-    /*this.validator = new ReeValidate({
-      password: 'required|min:6',
-      password_confirmation: 'required|min:6',
-      id: 'required',
-      token: 'required',
-    });*/
-
-    _defineProperty(_assertThisInitialized(_this), "handleChange", function (e) {
-      var _e$target = e.target,
-          name = _e$target.name,
-          value = _e$target.value;
-
-      _this.setState(_defineProperty({}, name, value)); // If a field has a validation error, we'll clear it when corrected.
 
 
-      var errors = _this.state.errors;
+var ResetPassword = function ResetPassword(props) {
+  var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_6__.useForm)(),
+      register = _useForm.register,
+      handleSubmit = _useForm.handleSubmit,
+      watch = _useForm.watch,
+      errors = _useForm.errors;
 
-      if (name in errors) {
-        /* const validation = this.validator.errors;
-         this.validator.validate(name, value).then(() => {
-           if (!validation.has(name)) {
-             delete errors[name];
-             this.setState({ errors });
-           }
-         });*/
-      }
-    });
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
+    email: '',
+    password: '',
+    password_confirmation: '',
+    id: '',
+    token: ''
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      stateForm = _useState2[0],
+      setStateForm = _useState2[1];
 
-    _defineProperty(_assertThisInitialized(_this), "handleBlur", function (e) {
-      var _e$target2 = e.target,
-          name = _e$target2.name,
-          value = _e$target2.value; //const validation = this.validator.errors;
-      // Avoid validation until input has a value.
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      loading = _useState4[0],
+      setLoading = _useState4[1];
 
-      if (value === '') {
-        return;
-      }
-      /*this.validator.validate(name, value).then(() => {
-        if (validation.has(name)) {
-          const { errors } = this.state;
-          errors[name] = validation.first(name);
-          this.setState({ errors });
-        }
-      });*/
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
+    error: false,
+    message: ''
+  }),
+      _useState6 = _slicedToArray(_useState5, 2),
+      response = _useState6[0],
+      setResponse = _useState6[1];
 
-    });
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+      _useState8 = _slicedToArray(_useState7, 2),
+      success = _useState8[0],
+      setSuccess = _useState8[1]; // If user is already authenticated we redirect to entry location.
 
-    _defineProperty(_assertThisInitialized(_this), "handleSubmit", function (e) {
-      e.preventDefault();
-      var credentials = {
-        id: _this.state.id,
-        token: _this.state.token,
-        password: _this.state.password,
-        password_confirmation: _this.state.password_confirmation
-      };
 
-      _this.setState({
-        loading: true
-      });
+  var _ref = props.location.state || {
+    from: {
+      pathname: '/'
+    }
+  },
+      from = _ref.from;
 
-      _this.props.dispatch(_services__WEBPACK_IMPORTED_MODULE_5__.default.updatePassword(credentials)).then(function (res) {
-        _this.passwordResetForm.reset();
+  var isAuthenticated = props.isAuthenticated;
 
-        var response = {
-          error: false,
-          message: res.message
-        };
+  var getResetId = function getResetId() {
+    var params = new URLSearchParams(props.location.search);
+    console.log(params);
 
-        _this.setState({
-          loading: false,
-          success: true,
-          response: response
-        });
-      })["catch"](function (err) {
-        _this.passwordResetForm.reset();
+    if (params.has('id')) {
+      return params.get('id');
+    }
 
-        var errors = Object.values(err.errors);
-        errors.join(' ');
-        var response = {
-          error: true,
-          message: errors
-        };
+    return '';
+  };
 
-        _this.setState({
-          response: response
-        });
+  var getResetToken = function getResetToken() {
+    var params = new URLSearchParams(props.location.search);
 
-        _this.setState({
-          loading: false
-        });
-      });
-    });
+    if (params.has('token')) {
+      return params.get('token');
+    }
 
-    _this.state = {
-      loading: false,
-      id: _this.getResetId(),
-      token: _this.getResetToken(),
-      password: '',
-      password_confirmation: '',
-      errors: {},
-      response: {
-        error: false,
-        message: ''
-      }
+    var qookie = document.cookie.split(';');
+    console.log(qookie);
+    return document.cookie.replace('XSRF-TOKEN=', '');
+  };
+
+  var handleChange = function handleChange(e) {
+    var _e$target = e.target,
+        name = _e$target.name,
+        value = _e$target.value;
+    setStateForm(_objectSpread(_objectSpread({}, stateForm), {}, _defineProperty({}, name, value)));
+  };
+
+  var handleBlur = function handleBlur(e) {
+    var _e$target2 = e.target,
+        name = _e$target2.name,
+        value = _e$target2.value; // Avoid validation until input has a value.
+
+    if (value === '') {
+      return;
+    }
+  };
+
+  var onSubmit = function onSubmit() {
+    var email = stateForm.email,
+        password = stateForm.password,
+        password_confirmation = stateForm.password_confirmation;
+    var credentials = {
+      email: email,
+      id: getResetId(),
+      token: getResetToken(),
+      password: password,
+      password_confirmation: password_confirmation
     };
-    return _this;
-  }
+    console.log(credentials);
+    setLoading(true);
+    submit(credentials);
+  };
 
-  _createClass(ResetPassword, [{
-    key: "getResetId",
-    value: function getResetId() {
-      var params = new URLSearchParams(this.props.location.search);
+  var submit = function submit(credentials) {
+    props.dispatch(_services__WEBPACK_IMPORTED_MODULE_5__.default.updatePassword(credentials)).then(function (res) {
+      var responses = {
+        error: false,
+        message: res.message
+      };
+      setResponse(responses);
+      setLoading(false);
+      setSuccess(true);
+    })["catch"](function (err) {
+      var errorss = Object.values(err.errors);
+      errorss.join(' ');
+      var responses = {
+        error: true,
+        message: errorss
+      };
+      setResponse(responses);
+      setLoading(false);
+    });
+  };
 
-      if (params.has('id')) {
-        return params.get('id');
-      }
-
-      return '';
-    }
-  }, {
-    key: "getResetToken",
-    value: function getResetToken() {
-      var params = new URLSearchParams(this.props.location.search);
-
-      if (params.has('token')) {
-        return params.get('token');
-      }
-
-      return '';
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-
-      // If user is already authenticated we redirect to entry location.
-      var _ref = this.props.location.state || {
-        from: {
-          pathname: '/'
-        }
-      },
-          from = _ref.from;
-
-      var isAuthenticated = this.props.isAuthenticated;
-
-      if (isAuthenticated) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Redirect, {
-          to: from
-        });
-      }
-
-      var _this$state = this.state,
-          response = _this$state.response,
-          errors = _this$state.errors,
-          loading = _this$state.loading;
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    children: [isAuthenticated && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Redirect, {
+      to: from
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+      className: "d-flex flex-column flex-row align-content-center py-5",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+        className: "container",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-          className: "d-flex flex-column flex-row align-content-center py-5",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-            className: "container",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-              className: "row",
+          className: "row",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+            className: "section-login col-lg-6 ml-auto mr-auto",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h4", {
+              children: "Password Reset"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+              className: "card-login card mb-3",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                className: "section-login col-lg-6 ml-auto mr-auto",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h4", {
-                  children: "Password Reset"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                  className: "card-login card mb-3",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                    className: "card-body",
-                    children: [this.state.success && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                      className: "alert alert-success text-center",
-                      role: "alert",
-                      children: "Your password has been reset!"
-                    }), response.error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                      className: "alert alert-danger text-center",
-                      role: "alert",
-                      children: response.message
-                    }), !this.state.success && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", {
-                      className: "form-horizontal",
-                      method: "POST",
-                      onSubmit: this.handleSubmit,
-                      ref: function ref(el) {
-                        _this2.passwordResetForm = el;
-                      },
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                        className: "form-group",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
-                          htmlFor: "password",
-                          children: "Password"
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
-                          id: "password",
-                          type: "password",
-                          className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('form-control', {
-                            'is-invalid': 'password' in errors
-                          }),
-                          name: "password",
-                          placeholder: "Enter password",
-                          required: true,
-                          onChange: this.handleChange,
-                          onBlur: this.handleBlur
-                        }), 'password' in errors && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                          className: "invalid-feedback",
-                          children: errors.password
-                        })]
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-                        className: "form-group",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
-                          htmlFor: "password_confirmation",
-                          children: "Password Confirmation"
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
-                          id: "password_confirmation",
-                          type: "password",
-                          className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('form-control', {
-                            'is-invalid': 'password_confirmation' in errors
-                          }),
-                          name: "password_confirmation",
-                          placeholder: "Confirm password",
-                          required: true,
-                          onChange: this.handleChange,
-                          onBlur: this.handleBlur
-                        }), 'password_confirmation' in errors && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                          className: "invalid-feedback",
-                          children: errors.password_confirmation
-                        })]
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                        className: "form-group text-center",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
-                          type: "submit",
-                          className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('btn btn-primary', {
-                            'btn-loading': loading
-                          }),
-                          children: "Reset Password"
-                        })
-                      })]
+                className: "card-body",
+                children: [success && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                  className: "alert alert-success text-center",
+                  role: "alert",
+                  children: "Your password has been reset!"
+                }), response.error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                  className: "alert alert-danger text-center",
+                  role: "alert",
+                  children: response.message
+                }), !success && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", {
+                  className: "form-horizontal",
+                  method: "POST",
+                  onSubmit: handleSubmit(onSubmit),
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                    className: "form-group",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+                      htmlFor: "email",
+                      children: "Email Address"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                      id: "email",
+                      type: "email",
+                      name: "email",
+                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('form-control', {
+                        'is-invalid': 'email' in errors
+                      }),
+                      placeholder: "Enter email",
+                      required: true,
+                      onChange: handleChange,
+                      onBlur: handleBlur,
+                      disabled: loading,
+                      ref: register({
+                        required: true
+                      })
+                    }), errors.email && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                      className: "invalid-feedback",
+                      children: "This field is required"
                     })]
-                  })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                    className: "form-group",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+                      htmlFor: "password",
+                      children: "Password"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                      id: "password",
+                      type: "password",
+                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('form-control', {
+                        'is-invalid': 'password' in errors
+                      }),
+                      name: "password",
+                      placeholder: "Enter password",
+                      required: true,
+                      onChange: handleChange,
+                      onBlur: handleBlur,
+                      ref: register({
+                        required: true
+                      })
+                    }), errors.password && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                      className: "invalid-feedback",
+                      children: "This field is required"
+                    })]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                    className: "form-group",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+                      htmlFor: "password_confirmation",
+                      children: "Password Confirmation"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                      id: "password_confirmation",
+                      type: "password",
+                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('form-control', {
+                        'is-invalid': 'password_confirmation' in errors
+                      }),
+                      name: "password_confirmation",
+                      placeholder: "Confirm password",
+                      required: true,
+                      onChange: handleChange,
+                      onBlur: handleBlur,
+                      ref: register({
+                        required: true
+                      })
+                    }), errors.password_confirmation && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                      className: "invalid-feedback",
+                      children: "This field is required"
+                    })]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                    className: "form-group text-center",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+                      type: "submit",
+                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('btn btn-primary', {
+                        'btn-loading': loading
+                      }),
+                      children: "Reset Password"
+                    })
+                  })]
                 })]
               })
-            })
+            })]
           })
         })
-      });
-    }
-  }]);
-
-  return ResetPassword;
-}(react__WEBPACK_IMPORTED_MODULE_1__.Component);
+      })
+    })]
+  });
+};
 
 ResetPassword.propTypes = {
   dispatch: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().func.isRequired),
