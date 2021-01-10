@@ -1,9 +1,8 @@
 <?php
 
-namespace App;
-
+namespace App\Models;
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
-use App\User;
+use App\Models\User;
 
 class Article extends Model
 {

@@ -1,66 +1,125 @@
-import React, {useState} from 'react'
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
+//import ReeValidate from 'ree-validate';
 import classNames from 'classnames';
 import AuthService from '../services';
-import { useForm } from "react-hook-form";
 
-const Register = (props) => {
+class Register extends Component {
+  constructor() {
+    super();
+/*
+    this.validator = new ReeValidate({
+      name: 'required|min:3',
+      email: 'required|email',
+      password: 'required|min:6',
+      password_confirmation: 'required|min:6',
+    });*/
 
-  const { register, handleSubmit, watch, errors } = useForm();
-  const [stateForm, setStateForm] = useState({name: '', email: '', password: '', password_confirmation: ''})
-  const [loading, setLoading] = useState(false)
-  const [success, setSuccess] = useState(false)
-  const [response, setResponse] = useState({error: false, message: '',})
-
-  // If user is already authenticated we redirect to entry location.
-  const { isAuthenticated } = props;
-
- const handleChange = (e) => {
-      const { name, value } = e.target;
-      setStateForm({
-          ...stateForm,
-          [ name ]: value
-      });
+    this.state = {
+      loading: false,
+      name: '',
+      email: '',
+      password: '',
+      password_confirmation: '',
+      errors: {},
+      response: {
+        error: false,
+        message: '',
+      },
+      success: false,
     };
-  
-   const handleBlur = (e) => {
-      const { name, value } = e.target;
-      // Avoid validation until input has a value.
-      if (value === '') {
-        return;
+  }
+
+  handleChange = (e) => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+
+    // If a field has a validation error, we'll clear it when corrected.
+    const { errors } = this.state;
+    if (name in errors) {
+      /*
+      const validation = this.validator.errors;
+      this.validator.validate(name, value).then(() => {
+        if (!validation.has(name)) {
+          delete errors[name];
+          this.setState({ errors });
+        }
+      });*/
+    }
+  };
+
+  handleBlur = (e) => {
+    const { name, value } = e.target;
+    //const validation = this.validator.errors;
+
+    // Avoid validation until input has a value.
+    if (value === '') {
+      return;
+    }
+/*
+    this.validator.validate(name, value).then(() => {
+      if (validation.has(name)) {
+        const { errors } = this.state;
+        errors[name] = validation.first(name);
+        this.setState({ errors });
       }
-    };
-  
-   const onSubmit = () => {
-      const { email, password, name, password_confirmation } = stateForm;
-      const credentials = {
+    });*/
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const {
+      name, email, password, password_confirmation,
+    } = this.state;
+    const credentials = {
       name,
       email,
       password,
       password_confirmation,
-      };
-      setLoading(true);
-      submit(credentials);
     };
-  
-   const submit = (credentials) => {
-     console.log(credentials)
-        props.dispatch(AuthService.register(credentials)).then(setSuccess(true)).catch((err) => {
-        const errorsCredentials = Object.values(err.errors);
+
+    // Set response state back to default.
+    this.setState({ response: { error: false, message: '' } });
+/*
+    this.validator.validateAll(credentials).then((success) => {
+      if (success) {
+        this.setState({ loading: true });
+        this.submit(credentials);
+      }
+    });*/
+  };
+
+  submit(credentials) {
+    this.props
+      .dispatch(AuthService.register(credentials))
+      .then(() => {
+        this.registrationForm.reset();
+        this.setState({ loading: false, success: true });
+      })
+      .catch((err) => {
+        const errors = Object.values(err.errors);
         errors.join(' ');
-        const responses = {
+        const response = {
           error: true,
-          message: errorsCredentials,
+          message: errors,
         };
-        setResponse(responses)
-        setLoading(false)
+        this.setState({ response });
+        this.setState({ loading: false });
       });
-    };
-  return (
-    <>
-       {isAuthenticated && <Redirect to="/" replace /> } 
+  }
+
+  render() {
+    // If user is already authenticated we redirect to dashboard.
+    if (this.props.isAuthenticated) {
+      return <Redirect to="/" replace />;
+    }
+
+    const { response, errors, loading } = this.state;
+
+    return (
+      <div>
         <div className="d-flex flex-column flex-row align-content-center py-5">
           <div className="container">
             <div className="row">
@@ -78,7 +137,7 @@ const Register = (props) => {
                       </div>
                     )}
 
-                    {success && (
+                    {this.state.success && (
                       <div
                         className="alert alert-success text-center"
                         role="alert"
@@ -91,13 +150,15 @@ const Register = (props) => {
                       </div>
                     )}
 
-                    {!success && (
+                    {!this.state.success && (
                       <form
                         className="form-horizontal"
                         method="POST"
-                        onSubmit={handleSubmit(onSubmit)}
+                        onSubmit={this.handleSubmit}
+                        ref={(el) => {
+                          this.registrationForm = el;
+                        }}
                       >
-                     
                         <div className="form-group">
                           <label htmlFor="name">Name</label>
                           <input
@@ -109,12 +170,16 @@ const Register = (props) => {
                             })}
                             placeholder="Enter name"
                             required
-                            onChange={handleChange}
-                            onBlur={handleBlur}
+                            onChange={this.handleChange}
+                            onBlur={this.handleBlur}
                             disabled={loading}
-                            ref={register({ required: true })}
-                        />
-                        {errors.name && <span className="invalid-feedback">This field is required</span>}
+                          />
+
+                          {'name' in errors && (
+                            <div className="invalid-feedback">
+                              {errors.name}
+                            </div>
+                          )}
                         </div>
 
                         <div className="form-group">
@@ -128,12 +193,16 @@ const Register = (props) => {
                             })}
                             placeholder="Enter email"
                             required
-                            onChange={handleChange}
-                            onBlur={handleBlur}
+                            onChange={this.handleChange}
+                            onBlur={this.handleBlur}
                             disabled={loading}
-                            ref={register({ required: true })}
-                        />
-                        {errors.email && <span className="invalid-feedback">This field is required</span>}
+                          />
+
+                          {'email' in errors && (
+                            <div className="invalid-feedback">
+                              {errors.email}
+                            </div>
+                          )}
                         </div>
 
                         <div className="form-group">
@@ -147,12 +216,15 @@ const Register = (props) => {
                             name="password"
                             placeholder="Enter password"
                             required
-                            onChange={handleChange}
-                            onBlur={handleBlur}
+                            onChange={this.handleChange}
+                            onBlur={this.handleBlur}
                             disabled={loading}
-                            ref={register({ required: true })}
-                        />
-                        {errors.password && <span className="invalid-feedback">This field is required</span>}
+                          />
+                          {'password' in errors && (
+                            <div className="invalid-feedback">
+                              {errors.password}
+                            </div>
+                          )}
                         </div>
 
                         <div className="form-group">
@@ -168,12 +240,15 @@ const Register = (props) => {
                             name="password_confirmation"
                             placeholder="Confirm password"
                             required
-                            onChange={handleChange}
-                            onBlur={handleBlur}
+                            onChange={this.handleChange}
+                            onBlur={this.handleBlur}
                             disabled={loading}
-                            ref={register({ required: true })}
-                        />
-                        {errors.password_confirmation && <span className="invalid-feedback">This field is required</span>}
+                          />
+                          {'password_confirmation' in errors && (
+                            <div className="invalid-feedback">
+                              {errors.password_confirmation}
+                            </div>
+                          )}
                         </div>
 
                         <div className="form-group text-center">
@@ -191,7 +266,7 @@ const Register = (props) => {
                   </div>
                 </div>
 
-                {!success && (
+                {!this.state.success && (
                   <div className="password-reset-link text-center">
                     <Link to="/" href="/">
                       Already registered? Log in.
@@ -202,9 +277,9 @@ const Register = (props) => {
             </div>
           </div>
         </div>
-      
-    </>
-  )
+      </div>
+    );
+  }
 }
 
 Register.propTypes = {
