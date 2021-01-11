@@ -8,13 +8,20 @@ const Dashboard = () => {
     const { register, handleSubmit, watch, errors } = useForm();
     const [dataState, setData] = useState([]);
     const [error, setError] = useState(false);
-    const [stateForm, setStateForm] = useState({ content: "" });
+    const [stateForm, setStateForm] = useState({
+        content: "",
+        title: "",
+        image_url: "",
+        slug: "",
+        cat_id: "",
+    });
 
     useEffect(() => {
         Http.get(`${api}?status=open`)
             .then((response) => {
                 const { data } = response.data;
                 setData(data);
+                setError(false);
             })
             .catch(() => {
                 setError("Unable to fetch data.");
@@ -42,7 +49,14 @@ const Dashboard = () => {
                 };
                 const allArticles = [newItem, ...dataState];
                 setData(allArticles);
-                setStateForm({ content: "" });
+                setStateForm({
+                    content: "",
+                    title: "",
+                    image_url: "",
+                    slug: "",
+                    cat_id: "",
+                });
+                setError(false);
             })
             .catch(() => {
                 setError("Sorry, there was an error saving your article.");
@@ -59,6 +73,7 @@ const Dashboard = () => {
                     (article) => article.id !== key
                 );
                 setData(updatedArticles);
+                setError(false);
             })
             .catch(() => {
                 setError("Sorry, there was an error saving your article.");
@@ -66,84 +81,149 @@ const Dashboard = () => {
     };
     return (
         <div className="container py-5">
-            <div className="add-todos mb-5">
-                <h1 className="text-center mb-4">Add an Article</h1>
-                <form method="post" onSubmit={handleSubmit(onSubmit)}>
-                    <div className="form-group">
-                        <label htmlFor="title">Title </label>
-                        <input
-                            id="title"
-                            type="title"
-                            name="title"
-                            className="form-control mr-3"
-                            placeholder="Title..."
-                            required
-                            onChange={handleChange}
-                            ref={register({ required: true })}
-                        />
-                        {errors.title && (
-                            <span className="invalid-feedback">
-                                This field is required
-                            </span>
-                        )}
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="addArticle">Add a New Article</label>
-                        <input
-                            id="addArticle"
-                            name="content"
-                            className="form-control mr-3"
-                            placeholder="Build a Blog app..."
-                            onChange={handleChange}
-                            ref={register()}
-                        />
-                        {errors.content && (
-                            <span className="invalid-feedback">
-                                This field is required.
-                            </span>
-                        )}
-                    </div>
-                    <button
-                        type="submit"
-                        className="btn btn-block btn-outline-primary"
-                    >
-                        Add
-                    </button>
-                </form>
-            </div>
+            <div className="row">
+                <div className="col">
+                    <div className="add-todos mb-5">
+                        <h1 className="text-center mb-4">Add an Article</h1>
+                        <form method="post" onSubmit={handleSubmit(onSubmit)}>
+                            <div className="form-group">
+                                <label htmlFor="title">Title </label>
+                                <input
+                                    id="title"
+                                    type="title"
+                                    name="title"
+                                    className="form-control mr-3"
+                                    placeholder="Title..."
+                                    required
+                                    onChange={handleChange}
+                                    value={stateForm.title}
+                                    ref={register({ required: true })}
+                                />
+                                {errors.title && (
+                                    <span className="invalid-feedback">
+                                        This field is required
+                                    </span>
+                                )}
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="addArticle">Content</label>
+                                <textarea
+                                    name="content"
+                                    id="content"
+                                    name="content"
+                                    className="form-control mr-3"
+                                    placeholder="Build a Blog app..."
+                                    onChange={handleChange}
+                                    value={stateForm.content}
+                                    ref={register()}
+                                />
 
-            {error && (
-                <div className="alert alert-warning" role="alert">
-                    {error}
+                                {errors.content && (
+                                    <span className="invalid-feedback">
+                                        This field is required.
+                                    </span>
+                                )}
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="image_url">Image Url</label>
+                                <input
+                                    id="image_url"
+                                    name="image_url"
+                                    className="form-control mr-3"
+                                    placeholder=""
+                                    onChange={handleChange}
+                                    value={stateForm.image_url}
+                                    ref={register()}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="slug">Slug</label>
+                                <input
+                                    id="slug"
+                                    name="slug"
+                                    className="form-control mr-3"
+                                    placeholder="Nice!"
+                                    onChange={handleChange}
+                                    value={stateForm.slug}
+                                    ref={register()}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="cat_id">Category</label>
+                                <input
+                                    id="cat_id"
+                                    name="cat_id"
+                                    className="form-control mr-3"
+                                    placeholder="Nice!"
+                                    onChange={handleChange}
+                                    value={stateForm.cat_id}
+                                    ref={register()}
+                                />
+                            </div>
+                            <button
+                                type="submit"
+                                className="btn btn-block btn-outline-primary"
+                            >
+                                Add
+                            </button>
+                        </form>
+                    </div>
+                    {error && (
+                        <div className="alert alert-warning" role="alert">
+                            {error}
+                        </div>
+                    )}
                 </div>
-            )}
-
-            <div className="todos">
-                <h1 className="text-center mb-4">Open Articles</h1>
-                <table className="table table-striped">
-                    <tbody>
-                        <tr>
-                            <th>Article</th>
-                            <th>Action</th>
-                        </tr>
-                        {dataState.length > 0 &&
-                            dataState.map((article) => (
-                                <tr key={article.id}>
-                                    <td>{article.value}</td>
-                                    <td>
-                                        <button
-                                            type="button"
-                                            className="btn btn-secondary"
-                                            onClick={closeArticle}
-                                            data-key={article.id}
-                                        >
-                                            Close
-                                        </button>
-                                    </td>
+                <div className="col">
+                    <div className="todos">
+                        <h1 className="text-center mb-4">Preview Articles</h1>
+                        <table className="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Content</th>
+                                    <th>Image</th>
+                                    <th>Slug</th>
+                                    <th>Category</th>
+                                    <th>Action</th>
                                 </tr>
-                            ))}
-                    </tbody>
-                </table>
+                                {dataState.length > 0 &&
+                                    dataState.map((article) => (
+                                        <tr key={article.id}>
+                                            <td>{article.article.title}</td>
+                                            <td>
+                                                {article.article.content
+                                                    .slice(0, 30)
+                                                    .concat("...")}
+                                            </td>
+                                            <td>
+                                                <img
+                                                    src={
+                                                        article.article
+                                                            .image_url
+                                                    }
+                                                    className="rounded mx-auto d-block"
+                                                    alt={article.article.slug}
+                                                ></img>
+                                            </td>
+                                            <td>{article.article.slug}</td>
+                                            <td>{article.article.cat_id}</td>
+                                            <td>
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-secondary btn-sm"
+                                                    onClick={closeArticle}
+                                                    data-key={article.id}
+                                                >
+                                                    Approve
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     );

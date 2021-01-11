@@ -2523,6 +2523,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var api = "/api/v1/article";
 
 var Dashboard = function Dashboard() {
+  var _jsx2;
+
   var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_3__.useForm)(),
       register = _useForm.register,
       handleSubmit = _useForm.handleSubmit,
@@ -2540,7 +2542,11 @@ var Dashboard = function Dashboard() {
       setError = _useState4[1];
 
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
-    content: ""
+    content: "",
+    title: "",
+    image_url: "",
+    slug: "",
+    cat_id: ""
   }),
       _useState6 = _slicedToArray(_useState5, 2),
       stateForm = _useState6[0],
@@ -2550,6 +2556,7 @@ var Dashboard = function Dashboard() {
     _Http__WEBPACK_IMPORTED_MODULE_2__.default.get("".concat(api, "?status=open")).then(function (response) {
       var data = response.data.data;
       setData(data);
+      setError(false);
     })["catch"](function () {
       setError("Unable to fetch data.");
     });
@@ -2576,8 +2583,13 @@ var Dashboard = function Dashboard() {
       var allArticles = [newItem].concat(_toConsumableArray(dataState));
       setData(allArticles);
       setStateForm({
-        content: ""
+        content: "",
+        title: "",
+        image_url: "",
+        slug: "",
+        cat_id: ""
       });
+      setError(false);
     })["catch"](function () {
       setError("Sorry, there was an error saving your article.");
     });
@@ -2593,99 +2605,168 @@ var Dashboard = function Dashboard() {
         return article.id !== key;
       });
       setData(updatedArticles);
+      setError(false);
     })["catch"](function () {
       setError("Sorry, there was an error saving your article.");
     });
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
     className: "container py-5",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-      className: "add-todos mb-5",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h1", {
-        className: "text-center mb-4",
-        children: "Add an Article"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", {
-        method: "post",
-        onSubmit: handleSubmit(onSubmit),
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+      className: "row",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+        className: "col",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-          className: "form-group",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
-            htmlFor: "title",
-            children: "Title "
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
-            id: "title",
-            type: "title",
-            name: "title",
-            className: "form-control mr-3",
-            placeholder: "Title...",
-            required: true,
-            onChange: handleChange,
-            ref: register({
-              required: true
-            })
-          }), errors.title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-            className: "invalid-feedback",
-            children: "This field is required"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-          className: "form-group",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
-            htmlFor: "addArticle",
-            children: "Add a New Article"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
-            id: "addArticle",
-            name: "content",
-            className: "form-control mr-3",
-            placeholder: "Build a Blog app...",
-            onChange: handleChange,
-            ref: register()
-          }), errors.content && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-            className: "invalid-feedback",
-            children: "This field is required."
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
-          type: "submit",
-          className: "btn btn-block btn-outline-primary",
-          children: "Add"
-        })]
-      })]
-    }), error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-      className: "alert alert-warning",
-      role: "alert",
-      children: error
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-      className: "todos",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h1", {
-        className: "text-center mb-4",
-        children: "Open Articles"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("table", {
-        className: "table table-striped",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tbody", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-              children: "Article"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-              children: "Action"
-            })]
-          }), dataState.length > 0 && dataState.map(function (article) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                children: article.value
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
-                  type: "button",
-                  className: "btn btn-secondary",
-                  onClick: closeArticle,
-                  "data-key": article.id,
-                  children: "Close"
+          className: "add-todos mb-5",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h1", {
+            className: "text-center mb-4",
+            children: "Add an Article"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", {
+            method: "post",
+            onSubmit: handleSubmit(onSubmit),
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+              className: "form-group",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+                htmlFor: "title",
+                children: "Title "
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                id: "title",
+                type: "title",
+                name: "title",
+                className: "form-control mr-3",
+                placeholder: "Title...",
+                required: true,
+                onChange: handleChange,
+                value: stateForm.title,
+                ref: register({
+                  required: true
                 })
+              }), errors.title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                className: "invalid-feedback",
+                children: "This field is required"
               })]
-            }, article.id);
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+              className: "form-group",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+                htmlFor: "addArticle",
+                children: "Content"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("textarea", (_jsx2 = {
+                name: "content",
+                id: "content"
+              }, _defineProperty(_jsx2, "name", "content"), _defineProperty(_jsx2, "className", "form-control mr-3"), _defineProperty(_jsx2, "placeholder", "Build a Blog app..."), _defineProperty(_jsx2, "onChange", handleChange), _defineProperty(_jsx2, "value", stateForm.content), _defineProperty(_jsx2, "ref", register()), _jsx2)), errors.content && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                className: "invalid-feedback",
+                children: "This field is required."
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+              className: "form-group",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+                htmlFor: "image_url",
+                children: "Image Url"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                id: "image_url",
+                name: "image_url",
+                className: "form-control mr-3",
+                placeholder: "",
+                onChange: handleChange,
+                value: stateForm.image_url,
+                ref: register()
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+              className: "form-group",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+                htmlFor: "slug",
+                children: "Slug"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                id: "slug",
+                name: "slug",
+                className: "form-control mr-3",
+                placeholder: "Nice!",
+                onChange: handleChange,
+                value: stateForm.slug,
+                ref: register()
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+              className: "form-group",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+                htmlFor: "cat_id",
+                children: "Category"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                id: "cat_id",
+                name: "cat_id",
+                className: "form-control mr-3",
+                placeholder: "Nice!",
+                onChange: handleChange,
+                value: stateForm.cat_id,
+                ref: register()
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+              type: "submit",
+              className: "btn btn-block btn-outline-primary",
+              children: "Add"
+            })]
+          })]
+        }), error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+          className: "alert alert-warning",
+          role: "alert",
+          children: error
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+        className: "col",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+          className: "todos",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h1", {
+            className: "text-center mb-4",
+            children: "Preview Articles"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("table", {
+            className: "table table-striped",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tbody", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+                  children: "Title"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+                  children: "Content"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+                  children: "Image"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+                  children: "Slug"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+                  children: "Category"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+                  children: "Action"
+                })]
+              }), dataState.length > 0 && dataState.map(function (article) {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                    children: article.article.title
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                    children: article.article.content.slice(0, 30).concat("...")
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("img", {
+                      src: article.article.image_url,
+                      className: "rounded mx-auto d-block",
+                      alt: article.article.slug
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                    children: article.article.slug
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                    children: article.article.cat_id
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+                      type: "button",
+                      className: "btn btn-secondary btn-sm",
+                      onClick: closeArticle,
+                      "data-key": article.id,
+                      children: "Approve"
+                    })
+                  })]
+                }, article.id);
+              })]
+            })
           })]
         })
       })]
-    })]
+    })
   });
 };
 
