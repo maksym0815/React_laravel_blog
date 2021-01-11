@@ -6,11 +6,11 @@ import Dropdown from "../components/Dropdown";
 const api = "/api/v1/article";
 
 const options = [
-    { value: "1", label: "Tecnología" },
-    { value: "2", label: "Entretenimiento" },
-    { value: "3", label: "Musica" },
-    { value: "4", label: "Moda" },
-    { value: "5", label: "Deportes" },
+    { value: "1", label: "Technology" },
+    { value: "2", label: "Entertainment" },
+    { value: "3", label: "Music" },
+    { value: "4", label: "Fashion" },
+    { value: "5", label: "Sports" },
 ];
 
 const Dashboard = () => {
@@ -225,12 +225,12 @@ const Dashboard = () => {
                                                 ></img>
                                             </td>
                                             <td>
-                                                <span class="badge badge-success">
+                                                <span className="badge badge-success">
                                                     {article.article.slug}
                                                 </span>
                                             </td>
                                             <td>
-                                                <span class="badge badge-warning">
+                                                <span className="badge badge-warning">
                                                     {
                                                         article.article.cat_id
                                                             .label
