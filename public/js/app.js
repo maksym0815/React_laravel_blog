@@ -2520,7 +2520,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var api = '/api/v1/article';
+var api = "/api/v1/article";
 
 var Dashboard = function Dashboard() {
   var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_3__.useForm)(),
@@ -2540,7 +2540,7 @@ var Dashboard = function Dashboard() {
       setError = _useState4[1];
 
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
-    content: ''
+    content: ""
   }),
       _useState6 = _slicedToArray(_useState5, 2),
       stateForm = _useState6[0],
@@ -2551,7 +2551,7 @@ var Dashboard = function Dashboard() {
       var data = response.data.data;
       setData(data);
     })["catch"](function () {
-      setError('Unable to fetch data.');
+      setError("Unable to fetch data.");
     });
   }, []);
 
@@ -2576,10 +2576,10 @@ var Dashboard = function Dashboard() {
       var allArticles = [newItem].concat(_toConsumableArray(dataState));
       setData(allArticles);
       setStateForm({
-        content: ''
+        content: ""
       });
     })["catch"](function () {
-      setError('Sorry, there was an error saving your article.');
+      setError("Sorry, there was an error saving your article.");
     });
   };
 
@@ -2587,14 +2587,14 @@ var Dashboard = function Dashboard() {
     var key = e.target.dataset.key;
     var articles = dataState.articles;
     _Http__WEBPACK_IMPORTED_MODULE_2__.default.patch("".concat(api, "/").concat(key), {
-      status: 'closed'
+      status: "closed"
     }).then(function () {
       var updatedArticles = articles.filter(function (article) {
         return article.id !== key;
       });
       setData(updatedArticles);
     })["catch"](function () {
-      setError('Sorry, there was an error saving your article.');
+      setError("Sorry, there was an error saving your article.");
     });
   };
 
@@ -2605,33 +2605,50 @@ var Dashboard = function Dashboard() {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h1", {
         className: "text-center mb-4",
         children: "Add an Article"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("form", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", {
         method: "post",
         onSubmit: handleSubmit(onSubmit),
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+          className: "form-group",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+            htmlFor: "title",
+            children: "Title "
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+            id: "title",
+            type: "title",
+            name: "title",
+            className: "form-control mr-3",
+            placeholder: "Title...",
+            required: true,
+            onChange: handleChange,
+            ref: register({
+              required: true
+            })
+          }), errors.title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+            className: "invalid-feedback",
+            children: "This field is required"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
           className: "form-group",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
             htmlFor: "addArticle",
             children: "Add a New Article"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-            className: "d-flex",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
-              id: "addArticle",
-              name: "content",
-              className: "form-control mr-3",
-              placeholder: "Build a Blog app...",
-              onChange: handleChange,
-              ref: register()
-            }), errors.content && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-              className: "invalid-feedback",
-              children: "This field is required."
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
-              type: "submit",
-              className: "btn btn-primary",
-              children: "Add"
-            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+            id: "addArticle",
+            name: "content",
+            className: "form-control mr-3",
+            placeholder: "Build a Blog app...",
+            onChange: handleChange,
+            ref: register()
+          }), errors.content && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+            className: "invalid-feedback",
+            children: "This field is required."
           })]
-        })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+          type: "submit",
+          className: "btn btn-block btn-outline-primary",
+          children: "Add"
+        })]
       })]
     }), error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
       className: "alert alert-warning",
