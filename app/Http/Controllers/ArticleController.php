@@ -96,12 +96,11 @@ class ArticleController extends ApiController
             return $this->responseUnauthorized();
         }
 
+        $article = Article::where('_id', $id)->firstOrFail();
         // User can only acccess their own data.
-        if ($article->user_id === $user->id) {
+        if ($article['user_id'] === $user->id) {
             return $this->responseUnauthorized();
         }
-
-        $article = Article::where('id', $id)->firstOrFail();
         return new ArticleResource($article);
     }
 
@@ -130,8 +129,8 @@ class ArticleController extends ApiController
         }
 
         try {
-            $article = Article::where('id', $id)->firstOrFail();
-            if ($article->user_id === $user->id) {
+            $article = Article::where('_id', $id)->firstOrFail();
+            if ($article['user_id'] === $user->id) {
                 if (request('content')) {
                     $article->content = request('content');
                 }
@@ -160,11 +159,9 @@ class ArticleController extends ApiController
         if (! $user = auth()->setRequest($request)->user()) {
             return $this->responseUnauthorized();
         }
-
-        $article = Article::where('id', $id)->firstOrFail();
-
+        $article = Article::where('_id', $id)->firstOrFail();
         // User can only delete their own data.
-        if ($article->user_id !== $user->id) {
+        if ($article['user_id'] !== $user->id) {
             return $this->responseUnauthorized();
         }
 

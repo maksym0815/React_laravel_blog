@@ -33,7 +33,7 @@ class Article extends Eloquent
      * @var array
      */
     protected $casts = [
-        'user_id' => 'integer',
+        'user_id' => 'string',
     ];
 
     /**
