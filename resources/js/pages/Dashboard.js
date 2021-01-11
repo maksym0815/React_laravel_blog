@@ -1,109 +1,92 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
 import Http from '../Http';
+import { useForm } from "react-hook-form";
 
-class Dashboard extends Component {
-  constructor(props) {
-    super(props);
+const api ='/api/v1/article';
 
-    // Initial state.
-    this.state = {
-      article: null,
-      error: false,
-      data: [],
-    };
+const Dashboard = () => {
+  const { register, handleSubmit, watch, errors } = useForm();
+  const [dataState, setData] = useState([]);
+  const [articleState, setArticle] = useState({});
+  const [error, setError] = useState(false);
+  const [stateForm, setStateForm] = useState({ article: ''})
 
-    // API endpoint.
-    this.api = '/api/v1/article';
-  }
 
-  componentDidMount() {
-    Http.get(`${this.api}?status=open`)
+  useEffect(() => {
+    Http.get(`${api}?status=open`)
       .then((response) => {
         const { data } = response.data;
-        this.setState({
-          data,
-          error: false,
-        });
+        setData(data)
       })
       .catch(() => {
-        this.setState({
-          error: 'Unable to fetch data.',
-        });
+        setError('Unable to fetch data.')
       });
-  }
-
-  handleChange = (e) => {
+  }, []);
+  
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    this.setState({ [name]: value });
+    setStateForm({
+        ...stateForm,
+        [ name ]: value
+    });
   };
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    const { article } = this.state;
-    this.addArticle(article);
+  const onSubmit = () => {
+    addArticle(articleState);
   };
 
-  addArticle = (article) => {
-    Http.post(this.api, { value: article })
+  const addArticle = (article) => {
+    Http.post(api, { content: article })
       .then(({ data }) => {
         const newItem = {
           id: data.id,
-          value: article,
+          content: article,
         };
-        const allArticles = [newItem, ...this.state.data];
-        this.setState({ data: allArticles, article: null });
-        this.articleForm.reset();
+        const allArticles = [newItem, ...dataState];
+        setData(allArticles)
+        setStateForm({})
+        setArticle('')
       })
       .catch(() => {
-        this.setState({
-          error: 'Sorry, there was an error saving your to do.',
-        });
+        setError('Sorry, there was an error saving your article.')
       });
   };
 
-  closeArticle = (e) => {
+const closeArticle = (e) => {
     const { key } = e.target.dataset;
-    const { data: articles } = this.state;
+    const { articles } = dataState;
 
-    Http.patch(`${this.api}/${key}`, { status: 'closed' })
+    Http.patch(`${api}/${key}`, { status: 'closed' })
       .then(() => {
         const updatedArticles = articles.filter(
-          (article) => article.id !== parseInt(key, 10),
+          (article) => article.id !== key,
         );
-        this.setState({ data: updatedArticles });
+        setData(updatedArticles)
       })
       .catch(() => {
-        this.setState({
-          error: 'Sorry, there was an error closing your to do.',
-        });
+        setError('Sorry, there was an error saving your article.')
       });
   };
-
-  render() {
-    const { data, error } = this.state;
-
-    return (
-      <div className="container py-5">
+  return (
+    <div className="container py-5">
         <div className="add-todos mb-5">
-          <h1 className="text-center mb-4">Add a To Do</h1>
+          <h1 className="text-center mb-4">Add an Article</h1>
           <form
             method="post"
-            onSubmit={this.handleSubmit}
-            ref={(el) => {
-              this.articleForm = el;
-            }}
+            onSubmit={handleSubmit(onSubmit)}
           >
             <div className="form-group">
-              <label htmlFor="addArticle">Add a New To Do</label>
+              <label htmlFor="addArticle">Add a New Article</label>
               <div className="d-flex">
                 <input
                   id="addArticle"
                   name="article"
                   className="form-control mr-3"
                   placeholder="Build a To Do app..."
-                  onChange={this.handleChange}
+                  onChange={handleChange}
+                  ref={register()}
                 />
+                {errors.article && <span className="invalid-feedback">This field is required.</span>}
                 <button type="submit" className="btn btn-primary">
                   Add
                 </button>
@@ -119,21 +102,21 @@ class Dashboard extends Component {
         )}
 
         <div className="todos">
-          <h1 className="text-center mb-4">Open To Dos</h1>
+          <h1 className="text-center mb-4">Open Articles</h1>
           <table className="table table-striped">
             <tbody>
               <tr>
-                <th>To Do</th>
+                <th>Article</th>
                 <th>Action</th>
               </tr>
-              {data.map((article) => (
+              {dataState.length>0 && dataState.map((article) => (
                 <tr key={article.id}>
                   <td>{article.value}</td>
                   <td>
                     <button
                       type="button"
                       className="btn btn-secondary"
-                      onClick={this.closeArticle}
+                      onClick={closeArticle}
                       data-key={article.id}
                     >
                       Close
@@ -145,13 +128,7 @@ class Dashboard extends Component {
           </table>
         </div>
       </div>
-    );
-  }
+  )
 }
 
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.Auth.isAuthenticated,
-  user: state.Auth.user,
-});
-
-export default connect(mapStateToProps)(Dashboard);
+export default Dashboard
