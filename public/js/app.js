@@ -5507,7 +5507,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var api = '/api/v1/article';
+var api = "/api/v1/article";
 
 var Archive = function Archive() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
@@ -5515,11 +5515,7 @@ var Archive = function Archive() {
       loading = _useState2[0],
       setLoading = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
-    error: false,
-    message: '',
-    articles: []
-  }),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState4 = _slicedToArray(_useState3, 2),
       responseState = _useState4[0],
       setResponseState = _useState4[1];
@@ -5541,14 +5537,17 @@ var Archive = function Archive() {
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     _Http__WEBPACK_IMPORTED_MODULE_5__.default.get(api).then(function (response) {
+      var _response$data, _response$data$links;
+
       var data = response.data.data;
-      var apiM = response.data.links.next;
+      console.log(data);
+      var apiM = (_response$data = response.data) === null || _response$data === void 0 ? void 0 : (_response$data$links = _response$data.links) === null || _response$data$links === void 0 ? void 0 : _response$data$links.next;
       setResponseState(data);
       setLoading(false);
       setError(false);
       setApiMore(apiM);
     })["catch"](function () {
-      setError('Unable to fetch data.');
+      setError("Unable to fetch data.");
     });
   }, []);
 
@@ -5557,24 +5556,22 @@ var Archive = function Archive() {
     _Http__WEBPACK_IMPORTED_MODULE_5__.default.get(apiMore).then(function (response) {
       var data = response.data.data;
       var apiM = response.data.links.next;
-      var dataMore = responseState.concat(data);
-      setResponse(dataMore);
+      setResponseState([data].concat(_toConsumableArray(responseState)));
       setApiMore(apiM);
       setLoading(false);
       setError(false);
       setMoreLoaded(true);
     })["catch"](function () {
-      setError('Unable to fetch data.');
+      setError("Unable to fetch data.");
       setLoading(false);
     });
   };
 
   var deleteArticle = function deleteArticle(e) {
     var key = e.target.dataset.key;
-    var articles = responseState.articles;
     _Http__WEBPACK_IMPORTED_MODULE_5__.default.delete("".concat(api, "/").concat(key)).then(function (response) {
       if (response.status === 204) {
-        var index = articles.findIndex(function (article) {
+        var index = responseState.findIndex(function (article) {
           return parseInt(article.id, 10) === parseInt(key, 10);
         });
         var update = [].concat(_toConsumableArray(articles.slice(0, index)), _toConsumableArray(articles.slice(index + 1)));
@@ -5582,7 +5579,7 @@ var Archive = function Archive() {
       }
     })["catch"](function (error) {
       console.log(error);
-      setError('There was an error processing.');
+      setError("There was an error processing.");
     });
   };
 
@@ -5632,8 +5629,8 @@ var Archive = function Archive() {
     }), apiMore && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
       className: "text-center",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
-        className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('btn btn-primary', {
-          'btn-loading': loading
+        className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("btn btn-primary", {
+          "btn-loading": loading
         }),
         onClick: loadMore,
         children: "Load More"

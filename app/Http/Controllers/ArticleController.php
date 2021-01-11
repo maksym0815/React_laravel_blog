@@ -26,8 +26,9 @@ class ArticleController extends ApiController
             return $this->responseUnauthorized();
         }
 
-        $collection = Article::where('user_id', $user->id);
-
+        //$collection = Article::where('user_id', $user->id);
+        $collection = Article::get();
+        //dd($collection);
         // Check query string filters.
         if ($status = $request->query('status')) {
             if ('open' === $status || 'closed' === $status) {
@@ -35,7 +36,7 @@ class ArticleController extends ApiController
             }
         }
 
-        $collection = $collection->latest()->paginate();
+        //$collection = $collection->latest()->paginate();
 
         // Appends "status" to pagination links if present in the query.
         if ($status) {
@@ -61,6 +62,7 @@ class ArticleController extends ApiController
         // Validate all the required parameters have been sent.
         $validator = Validator::make($request->all(), [
             'content' => 'required',
+            'title' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -71,7 +73,11 @@ class ArticleController extends ApiController
         try {
             $article = Article::create([
                 'user_id' => $user->id,
-                'contemt' => request('content'),
+                'content' => request('content'),
+                'title' => request('title'),
+                'cat_id' => request('cat_id'),
+                'slug' => request('slug'),
+                'image_url' => request('image_url'),
             ]);
             return response()->json([
                 'status' => 201,
@@ -122,6 +128,9 @@ class ArticleController extends ApiController
         $validator = Validator::make($request->all(), [
             'content' => 'string',
             'status' => 'in:closed,open',
+            'title' => 'string',
+            'slug' => 'string',
+            'image_url' => 'string',
         ]);
 
         if ($validator->fails()) {
@@ -131,8 +140,20 @@ class ArticleController extends ApiController
         try {
             $article = Article::where('_id', $id)->firstOrFail();
             if ($article['user_id'] === $user->id) {
+                if (request('title')) {
+                    $article->title = request('title');
+                }
                 if (request('content')) {
                     $article->content = request('content');
+                }
+                if (request('slug')) {
+                    $article->slug = request('slug');
+                }
+                if (request('cat_id')) {
+                    $article->cat_id = request('cat_id');
+                }
+                if (request('image_url')) {
+                    $article->image_url = request('image_url');
                 }
                 if (request('status')) {
                     $article->status = request('status');
