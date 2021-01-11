@@ -5873,6 +5873,7 @@ var Dashboard = function Dashboard() {
                 children: "Image Url"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
                 id: "image_url",
+                type: "url",
                 name: "image_url",
                 className: "form-control mr-3",
                 placeholder: "",
@@ -6845,10 +6846,12 @@ var Register = function Register(props) {
       errors = _useForm.errors;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
-    name: '',
-    email: '',
-    password: '',
-    password_confirmation: ''
+    name: "",
+    cellphone: "",
+    type: "user",
+    email: "",
+    password: "",
+    password_confirmation: ""
   }),
       _useState2 = _slicedToArray(_useState, 2),
       stateForm = _useState2[0],
@@ -6866,7 +6869,7 @@ var Register = function Register(props) {
 
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
     error: false,
-    message: ''
+    message: ""
   }),
       _useState8 = _slicedToArray(_useState7, 2),
       response = _useState8[0],
@@ -6875,31 +6878,48 @@ var Register = function Register(props) {
 
   var isAuthenticated = props.isAuthenticated;
 
-  var handleChange = function handleChange(e) {
+  var onHandleTelephoneChange = function onHandleTelephoneChange(e) {
     var _e$target = e.target,
         name = _e$target.name,
         value = _e$target.value;
+    var telephone = value;
+
+    if (!Number(telephone) && value !== "") {
+      return;
+    }
+
+    setStateForm(_objectSpread(_objectSpread({}, stateForm), {}, _defineProperty({}, name, value)));
+  };
+
+  var handleChange = function handleChange(e) {
+    var _e$target2 = e.target,
+        name = _e$target2.name,
+        value = _e$target2.value;
     setStateForm(_objectSpread(_objectSpread({}, stateForm), {}, _defineProperty({}, name, value)));
   };
 
   var handleBlur = function handleBlur(e) {
-    var _e$target2 = e.target,
-        name = _e$target2.name,
-        value = _e$target2.value; // Avoid validation until input has a value.
+    var _e$target3 = e.target,
+        name = _e$target3.name,
+        value = _e$target3.value; // Avoid validation until input has a value.
 
-    if (value === '') {
+    if (value === "") {
       return;
     }
   };
 
   var onSubmit = function onSubmit() {
     var email = stateForm.email,
+        cellphone = stateForm.cellphone,
+        type = stateForm.type,
         password = stateForm.password,
         name = stateForm.name,
         password_confirmation = stateForm.password_confirmation;
     var credentials = {
       name: name,
       email: email,
+      cellphone: cellphone,
+      type: type,
       password: password,
       password_confirmation: password_confirmation
     };
@@ -6911,7 +6931,7 @@ var Register = function Register(props) {
     console.log(credentials);
     props.dispatch(_services__WEBPACK_IMPORTED_MODULE_5__.default.register(credentials)).then(setSuccess(true))["catch"](function (err) {
       var errorsCredentials = Object.values(err.errors);
-      errors.join(' ');
+      errors.join(" ");
       var responses = {
         error: true,
         message: errorsCredentials
@@ -6964,8 +6984,9 @@ var Register = function Register(props) {
                       id: "name",
                       type: "name",
                       name: "name",
-                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('form-control', {
-                        'is-invalid': 'name' in errors
+                      value: stateForm.name,
+                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("form-control", {
+                        "is-invalid": "name" in errors
                       }),
                       placeholder: "Enter name",
                       required: true,
@@ -6982,14 +7003,41 @@ var Register = function Register(props) {
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
                     className: "form-group",
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+                      htmlFor: "cellphone",
+                      children: "Cellphone"
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                      id: "cellphone",
+                      type: "text",
+                      name: "cellphone",
+                      value: stateForm.cellphone,
+                      maxLength: 10,
+                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("form-control", {
+                        "is-invalid": "cellphone" in errors
+                      }),
+                      placeholder: "Cellphone",
+                      required: true,
+                      onChange: onHandleTelephoneChange,
+                      onBlur: handleBlur,
+                      disabled: loading,
+                      ref: register({
+                        required: true
+                      })
+                    }), errors.cellphone && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                      className: "invalid-feedback",
+                      children: "This field is required"
+                    })]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                    className: "form-group",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
                       htmlFor: "email",
                       children: "Email Address"
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
                       id: "email",
                       type: "email",
                       name: "email",
-                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('form-control', {
-                        'is-invalid': 'email' in errors
+                      value: stateForm.email,
+                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("form-control", {
+                        "is-invalid": "email" in errors
                       }),
                       placeholder: "Enter email",
                       required: true,
@@ -7011,8 +7059,9 @@ var Register = function Register(props) {
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
                       id: "password",
                       type: "password",
-                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('form-control', {
-                        'is-invalid': 'password' in errors
+                      value: stateForm.password,
+                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("form-control", {
+                        "is-invalid": "password" in errors
                       }),
                       name: "password",
                       placeholder: "Enter password",
@@ -7035,8 +7084,9 @@ var Register = function Register(props) {
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
                       id: "password_confirmation",
                       type: "password",
-                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('form-control', {
-                        'is-invalid': 'password_confirmation' in errors
+                      value: stateForm.password_confirmation,
+                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("form-control", {
+                        "is-invalid": "password_confirmation" in errors
                       }),
                       name: "password_confirmation",
                       placeholder: "Confirm password",
@@ -7055,8 +7105,8 @@ var Register = function Register(props) {
                     className: "form-group text-center",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
                       type: "submit",
-                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('btn btn-primary', {
-                        'btn-loading': loading
+                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("btn btn-primary", {
+                        "btn-loading": loading
                       }),
                       children: "Register"
                     })

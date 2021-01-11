@@ -138,6 +138,7 @@ const Dashboard = () => {
                                 <label htmlFor="image_url">Image Url</label>
                                 <input
                                     id="image_url"
+                                    type="url"
                                     name="image_url"
                                     className="form-control mr-3"
                                     placeholder=""

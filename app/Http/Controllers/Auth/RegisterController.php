@@ -31,6 +31,7 @@ class RegisterController extends APIController
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'cellphone' => 'required|string|min:7',
         ]);
 
         if ($validator->fails()) {
@@ -57,6 +58,8 @@ class RegisterController extends APIController
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'cellphone' => $data['cellphone'],
+            'type' => $data['type'],
         ]);
     }
 }
