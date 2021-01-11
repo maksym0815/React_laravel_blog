@@ -7,9 +7,8 @@ const api ='/api/v1/article';
 const Dashboard = () => {
   const { register, handleSubmit, watch, errors } = useForm();
   const [dataState, setData] = useState([]);
-  const [articleState, setArticle] = useState({});
   const [error, setError] = useState(false);
-  const [stateForm, setStateForm] = useState({ article: ''})
+  const [stateForm, setStateForm] = useState({ content: ''})
 
 
   useEffect(() => {
@@ -32,20 +31,19 @@ const Dashboard = () => {
   };
 
   const onSubmit = () => {
-    addArticle(articleState);
+    addArticle(stateForm);
   };
 
   const addArticle = (article) => {
-    Http.post(api, { content: article })
+    Http.post(api,  article)
       .then(({ data }) => {
         const newItem = {
           id: data.id,
-          content: article,
+          article,
         };
         const allArticles = [newItem, ...dataState];
         setData(allArticles)
-        setStateForm({})
-        setArticle('')
+        setStateForm({content: ''})
       })
       .catch(() => {
         setError('Sorry, there was an error saving your article.')
@@ -80,13 +78,13 @@ const closeArticle = (e) => {
               <div className="d-flex">
                 <input
                   id="addArticle"
-                  name="article"
+                  name="content"
                   className="form-control mr-3"
-                  placeholder="Build a To Do app..."
+                  placeholder="Build a Blog app..."
                   onChange={handleChange}
                   ref={register()}
                 />
-                {errors.article && <span className="invalid-feedback">This field is required.</span>}
+                {errors.content && <span className="invalid-feedback">This field is required.</span>}
                 <button type="submit" className="btn btn-primary">
                   Add
                 </button>

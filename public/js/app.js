@@ -2420,12 +2420,12 @@ var Archive = function Archive() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
             children: "Action"
           })]
-        }), (responseState === null || responseState === void 0 ? void 0 : responseState.articles.length) > 0 && responseState.articles.map(function (article) {
+        }), responseState.length > 0 && responseState.map(function (article) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
               children: article.created_at
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-              children: article.value
+              children: article.content
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
               children: article.status
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
@@ -2534,22 +2534,17 @@ var Dashboard = function Dashboard() {
       dataState = _useState2[0],
       setData = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({}),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
       _useState4 = _slicedToArray(_useState3, 2),
-      articleState = _useState4[0],
-      setArticle = _useState4[1];
+      error = _useState4[0],
+      setError = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
-      _useState6 = _slicedToArray(_useState5, 2),
-      error = _useState6[0],
-      setError = _useState6[1];
-
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
-    article: ''
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
+    content: ''
   }),
-      _useState8 = _slicedToArray(_useState7, 2),
-      stateForm = _useState8[0],
-      setStateForm = _useState8[1];
+      _useState6 = _slicedToArray(_useState5, 2),
+      stateForm = _useState6[0],
+      setStateForm = _useState6[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     _Http__WEBPACK_IMPORTED_MODULE_2__.default.get("".concat(api, "?status=open")).then(function (response) {
@@ -2568,22 +2563,21 @@ var Dashboard = function Dashboard() {
   };
 
   var onSubmit = function onSubmit() {
-    addArticle(articleState);
+    addArticle(stateForm);
   };
 
   var addArticle = function addArticle(article) {
-    _Http__WEBPACK_IMPORTED_MODULE_2__.default.post(api, {
-      content: article
-    }).then(function (_ref) {
+    _Http__WEBPACK_IMPORTED_MODULE_2__.default.post(api, article).then(function (_ref) {
       var data = _ref.data;
       var newItem = {
         id: data.id,
-        content: article
+        article: article
       };
       var allArticles = [newItem].concat(_toConsumableArray(dataState));
       setData(allArticles);
-      setStateForm({});
-      setArticle('');
+      setStateForm({
+        content: ''
+      });
     })["catch"](function () {
       setError('Sorry, there was an error saving your article.');
     });
@@ -2623,12 +2617,12 @@ var Dashboard = function Dashboard() {
             className: "d-flex",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
               id: "addArticle",
-              name: "article",
+              name: "content",
               className: "form-control mr-3",
-              placeholder: "Build a To Do app...",
+              placeholder: "Build a Blog app...",
               onChange: handleChange,
               ref: register()
-            }), errors.article && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+            }), errors.content && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
               className: "invalid-feedback",
               children: "This field is required."
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
@@ -4171,10 +4165,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var _Base__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Base */ "./resources/js/Base.js");
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var _Base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Base */ "./resources/js/Base.js");
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -4191,14 +4183,13 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 
 
-
 var PublicRoute = function PublicRoute(_ref) {
   var Component = _ref.component,
       rest = _objectWithoutProperties(_ref, ["component"]);
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router__WEBPACK_IMPORTED_MODULE_4__.Route, _objectSpread(_objectSpread({}, rest), {}, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router__WEBPACK_IMPORTED_MODULE_3__.Route, _objectSpread(_objectSpread({}, rest), {}, {
     render: function render(props) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_3__.default, {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Base__WEBPACK_IMPORTED_MODULE_2__.default, {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(Component, _objectSpread({}, props))
       });
     }

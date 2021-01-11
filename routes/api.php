@@ -29,7 +29,7 @@ Route::group([
 Route::group([
     'prefix' => 'v1'
 ], function ($router) {
-    Route::apiResource('todo', 'ArticleController');
+    Route::apiResource('article', 'ArticleController');
 });
 
 // Not Found

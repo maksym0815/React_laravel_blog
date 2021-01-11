@@ -3,33 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
-//use Illuminate\Foundation\Auth\User as Authenticatable;
-//use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use App\Notifications\ResetPassword as ResetPasswordNotification;
 use App\Custom\Hasher;
 use App\Models\Article;
 use Vinkla\Hashids\Facades\Hashids;
-
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
-//use Illuminate\Contracts\Auth\Authenticatable;
-//use Illuminate\Auth\Authenticatable as AuthenticableTrait;
-
-//class User extends Eloquent  implements Authenticatable
-//class User extends Authenticatable implements JWTSubject
 use Jenssegers\Mongodb\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements JWTSubject
 {
-    //use AuthenticableTrait;
-
-//class User extends Authenticatable implements JWTSubject
-//class User extends Eloquent implements JWTSubject
-//{
-    
-    //use HasFactory, Notifiable;
-
     use Notifiable;
 
     protected $connection = 'mongodb';

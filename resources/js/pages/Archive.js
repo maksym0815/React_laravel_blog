@@ -85,10 +85,10 @@ const Archive = () => {
             <th>Status</th>
             <th>Action</th>
           </tr>
-          {responseState?.articles.length>0 && responseState.articles.map((article) => (
+          {responseState.length>0 && responseState.map((article) => (
             <tr key={article.id}>
               <td>{article.created_at}</td>
-              <td>{article.value}</td>
+              <td>{article.content}</td>
               <td>{article.status}</td>
               <td>
                 <button

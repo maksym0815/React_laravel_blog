@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Article;
+use App\Models\Article;
 use App\Http\Resources\ApiResourceCollection;
 use App\Http\Resources\ArticleResource;
 

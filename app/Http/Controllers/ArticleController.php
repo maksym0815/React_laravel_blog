@@ -4,8 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use App\Http\Controllers\APIController;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\ArticleCollection;
+use App\Http\Resources\ArticleResource;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
-class ArticleController extends Controller
+class ArticleController extends ApiController
 {
 
    /**
@@ -16,7 +22,7 @@ class ArticleController extends Controller
     public function index(Request $request)
     {
         // Get user from $request token.
-        if (! $user = auth()->setRequest($request)->user()) {
+        if (!$user = auth()->setRequest($request)->user()) {
             return $this->responseUnauthorized();
         }
 

@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use App\Custom\Hasher;
-
 class ArticleResource extends ApiResource
 {
     /**
@@ -18,7 +17,7 @@ class ArticleResource extends ApiResource
             'created_at' => (string)$this->created_at->toDateTimeString(),
             'updated_at' => (string)$this->updated_at->toDateTimeString(),
             'id' => $this->id,
-            'user' => Hasher::encode($this->user_id),
+            'user_id' => $this->user_id,
             'title' => $this->title,
             'content' => $this->content,
             'slug' => $this->slug,
