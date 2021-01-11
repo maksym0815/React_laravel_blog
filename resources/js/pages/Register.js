@@ -78,14 +78,16 @@ const Register = (props) => {
             .dispatch(AuthService.register(credentials))
             .then(setSuccess(true))
             .catch((err) => {
+                console.log(err);
                 const errorsCredentials = Object.values(err.errors);
-                errors.join(" ");
+                errorsCredentials.join(" ");
                 const responses = {
                     error: true,
-                    message: errorsCredentials,
+                    message: errorsCredentials[0],
                 };
                 setResponse(responses);
                 setLoading(false);
+                setSuccess(false);
             });
     };
     return (

@@ -6056,8 +6056,8 @@ var ForgotPassword = function ForgotPassword(props) {
       errors = _useForm.errors;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
-    email: '',
-    password: ''
+    email: "",
+    password: ""
   }),
       _useState2 = _slicedToArray(_useState, 2),
       stateForm = _useState2[0],
@@ -6070,7 +6070,7 @@ var ForgotPassword = function ForgotPassword(props) {
 
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
     error: false,
-    message: ''
+    message: ""
   }),
       _useState6 = _slicedToArray(_useState5, 2),
       response = _useState6[0],
@@ -6084,7 +6084,7 @@ var ForgotPassword = function ForgotPassword(props) {
 
   var _ref = props.location.state || {
     from: {
-      pathname: '/'
+      pathname: "/"
     }
   },
       from = _ref.from;
@@ -6103,7 +6103,7 @@ var ForgotPassword = function ForgotPassword(props) {
         name = _e$target2.name,
         value = _e$target2.value; // Avoid validation until input has a value.
 
-    if (value === '') {
+    if (value === "") {
       return;
     }
   };
@@ -6128,10 +6128,10 @@ var ForgotPassword = function ForgotPassword(props) {
       setSuccess(success);
     })["catch"](function (err) {
       var errorss = Object.values(err.errors);
-      errorss.join(' ');
+      errorss.join(" ");
       var responses = {
         error: true,
-        message: errorss
+        message: errorss[0]
       };
       setResponse(responses);
       setLoading(false);
@@ -6176,8 +6176,8 @@ var ForgotPassword = function ForgotPassword(props) {
                       id: "email",
                       type: "email",
                       name: "email",
-                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('form-control', {
-                        'is-invalid': 'email' in errors
+                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("form-control", {
+                        "is-invalid": "email" in errors
                       }),
                       placeholder: "Enter email",
                       required: true,
@@ -6195,8 +6195,8 @@ var ForgotPassword = function ForgotPassword(props) {
                     className: "form-group text-center",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
                       type: "submit",
-                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('btn btn-primary', {
-                        'btn-loading': loading
+                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("btn btn-primary", {
+                        "btn-loading": loading
                       }),
                       children: "Send Password Reset Email"
                     })
@@ -6285,8 +6285,8 @@ var Home = function Home(props) {
       errors = _useForm.errors;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
-    email: '',
-    password: ''
+    email: "",
+    password: ""
   }),
       _useState2 = _slicedToArray(_useState, 2),
       stateForm = _useState2[0],
@@ -6299,7 +6299,7 @@ var Home = function Home(props) {
 
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
     error: false,
-    message: ''
+    message: ""
   }),
       _useState6 = _slicedToArray(_useState5, 2),
       response = _useState6[0],
@@ -6308,7 +6308,7 @@ var Home = function Home(props) {
 
   var _ref = props.location.state || {
     from: {
-      pathname: '/'
+      pathname: "/"
     }
   },
       from = _ref.from;
@@ -6327,7 +6327,7 @@ var Home = function Home(props) {
         name = _e$target2.name,
         value = _e$target2.value; // Avoid validation until input has a value.
 
-    if (value === '') {
+    if (value === "") {
       return;
     }
   };
@@ -6346,11 +6346,12 @@ var Home = function Home(props) {
 
   var submit = function submit(credentials) {
     props.dispatch(_services__WEBPACK_IMPORTED_MODULE_4__.default.login(credentials))["catch"](function (err) {
+      console.log(err);
       var errorsCredentials = Object.values(err.errors);
-      errors.join(' ');
+      errorsCredentials.join(" ");
       var responses = {
         error: true,
-        message: errorsCredentials
+        message: errorsCredentials[0]
       };
       setResponse(responses);
       setLoading(false);
@@ -6405,8 +6406,8 @@ var Home = function Home(props) {
                       id: "email",
                       type: "email",
                       name: "email",
-                      className: classnames__WEBPACK_IMPORTED_MODULE_5___default()('form-control', {
-                        'is-invalid': 'email' in errors
+                      className: classnames__WEBPACK_IMPORTED_MODULE_5___default()("form-control", {
+                        "is-invalid": "email" in errors
                       }),
                       placeholder: "Enter email",
                       required: true,
@@ -6428,8 +6429,8 @@ var Home = function Home(props) {
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
                       id: "password",
                       type: "password",
-                      className: classnames__WEBPACK_IMPORTED_MODULE_5___default()('form-control', {
-                        'is-invalid': 'password' in errors
+                      className: classnames__WEBPACK_IMPORTED_MODULE_5___default()("form-control", {
+                        "is-invalid": "password" in errors
                       }),
                       name: "password",
                       placeholder: "Enter password",
@@ -6448,14 +6449,14 @@ var Home = function Home(props) {
                     className: "form-group text-center",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
                       type: "submit",
-                      className: classnames__WEBPACK_IMPORTED_MODULE_5___default()('btn btn-primary', {
-                        'btn-loading': loading
+                      className: classnames__WEBPACK_IMPORTED_MODULE_5___default()("btn btn-primary", {
+                        "btn-loading": loading
                       }),
                       children: "Sign In"
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
                     className: "login-invite-text text-center",
-                    children: ["Don't have an account?", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
+                    children: ["Don't have an account?", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
                       to: "/register",
                       children: "Register"
                     }), "."]
@@ -6551,8 +6552,8 @@ var Login = function Login(props) {
       errors = _useForm.errors;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
-    email: '',
-    password: ''
+    email: "",
+    password: ""
   }),
       _useState2 = _slicedToArray(_useState, 2),
       stateForm = _useState2[0],
@@ -6565,7 +6566,7 @@ var Login = function Login(props) {
 
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
     error: false,
-    message: ''
+    message: ""
   }),
       _useState6 = _slicedToArray(_useState5, 2),
       response = _useState6[0],
@@ -6574,7 +6575,7 @@ var Login = function Login(props) {
 
   var _ref = props.location.state || {
     from: {
-      pathname: '/'
+      pathname: "/"
     }
   },
       from = _ref.from;
@@ -6593,7 +6594,7 @@ var Login = function Login(props) {
         name = _e$target2.name,
         value = _e$target2.value; // Avoid validation until input has a value.
 
-    if (value === '') {
+    if (value === "") {
       return;
     }
   };
@@ -6611,11 +6612,12 @@ var Login = function Login(props) {
 
   var submit = function submit(credentials) {
     props.dispatch(_services__WEBPACK_IMPORTED_MODULE_5__.default.login(credentials))["catch"](function (err) {
+      console.log(err);
       var errorsCredentials = Object.values(err.errors);
-      errors.join(' ');
+      errorsCredentials.join(" ");
       var responses = {
         error: true,
-        message: errorsCredentials
+        message: errorsCredentials[0]
       };
       setResponse(responses);
       setLoading(false);
@@ -6649,15 +6651,15 @@ var Login = function Login(props) {
                   onSubmit: handleSubmit(onSubmit),
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
                     className: "form-group",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("label", {
                       htmlFor: "email",
-                      children: "Email Address "
+                      children: ["Email Address", " "]
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
                       id: "email",
                       type: "email",
                       name: "email",
-                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('form-control', {
-                        'is-invalid': 'email' in errors
+                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("form-control", {
+                        "is-invalid": "email" in errors
                       }),
                       placeholder: "Enter email",
                       required: true,
@@ -6673,14 +6675,14 @@ var Login = function Login(props) {
                     })]
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
                     className: "form-group",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("label", {
                       htmlFor: "password",
-                      children: "Password "
+                      children: ["Password", " "]
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
                       id: "password",
                       type: "password",
-                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('form-control', {
-                        'is-invalid': 'password' in errors
+                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("form-control", {
+                        "is-invalid": "password" in errors
                       }),
                       name: "password",
                       placeholder: "Enter password",
@@ -6699,14 +6701,14 @@ var Login = function Login(props) {
                     className: "form-group text-center",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
                       type: "submit",
-                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('btn btn-primary', {
-                        'btn-loading': loading
+                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("btn btn-primary", {
+                        "btn-loading": loading
                       }),
                       children: "Sign In"
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
                     className: "login-invite-text text-center",
-                    children: ["No account?", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
+                    children: ["No account?", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
                       to: "/register",
                       href: "/register",
                       children: "Register"
@@ -6732,7 +6734,7 @@ var Login = function Login(props) {
 Login.defaultProps = {
   location: {
     state: {
-      pathname: '/'
+      pathname: "/"
     }
   }
 };
@@ -6930,14 +6932,16 @@ var Register = function Register(props) {
   var submit = function submit(credentials) {
     console.log(credentials);
     props.dispatch(_services__WEBPACK_IMPORTED_MODULE_5__.default.register(credentials)).then(setSuccess(true))["catch"](function (err) {
+      console.log(err);
       var errorsCredentials = Object.values(err.errors);
-      errors.join(" ");
+      errorsCredentials.join(" ");
       var responses = {
         error: true,
-        message: errorsCredentials
+        message: errorsCredentials[0]
       };
       setResponse(responses);
       setLoading(false);
+      setSuccess(false);
     });
   };
 
@@ -7202,11 +7206,11 @@ var ResetPassword = function ResetPassword(props) {
       errors = _useForm.errors;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
-    email: '',
-    password: '',
-    password_confirmation: '',
-    id: '',
-    token: ''
+    email: "",
+    password: "",
+    password_confirmation: "",
+    id: "",
+    token: ""
   }),
       _useState2 = _slicedToArray(_useState, 2),
       stateForm = _useState2[0],
@@ -7219,7 +7223,7 @@ var ResetPassword = function ResetPassword(props) {
 
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
     error: false,
-    message: ''
+    message: ""
   }),
       _useState6 = _slicedToArray(_useState5, 2),
       response = _useState6[0],
@@ -7233,7 +7237,7 @@ var ResetPassword = function ResetPassword(props) {
 
   var _ref = props.location.state || {
     from: {
-      pathname: '/'
+      pathname: "/"
     }
   },
       from = _ref.from;
@@ -7244,23 +7248,23 @@ var ResetPassword = function ResetPassword(props) {
     var params = new URLSearchParams(props.location.search);
     console.log(params);
 
-    if (params.has('id')) {
-      return params.get('id');
+    if (params.has("id")) {
+      return params.get("id");
     }
 
-    return '';
+    return "";
   };
 
   var getResetToken = function getResetToken() {
     var params = new URLSearchParams(props.location.search);
 
-    if (params.has('token')) {
-      return params.get('token');
+    if (params.has("token")) {
+      return params.get("token");
     }
 
-    var qookie = document.cookie.split(';');
+    var qookie = document.cookie.split(";");
     console.log(qookie);
-    return document.cookie.replace('XSRF-TOKEN=', '');
+    return document.cookie.replace("XSRF-TOKEN=", "");
   };
 
   var handleChange = function handleChange(e) {
@@ -7275,7 +7279,7 @@ var ResetPassword = function ResetPassword(props) {
         name = _e$target2.name,
         value = _e$target2.value; // Avoid validation until input has a value.
 
-    if (value === '') {
+    if (value === "") {
       return;
     }
   };
@@ -7307,10 +7311,10 @@ var ResetPassword = function ResetPassword(props) {
       setSuccess(true);
     })["catch"](function (err) {
       var errorss = Object.values(err.errors);
-      errorss.join(' ');
+      errorss.join(" ");
       var responses = {
         error: true,
-        message: errorss
+        message: errorss[0]
       };
       setResponse(responses);
       setLoading(false);
@@ -7355,8 +7359,8 @@ var ResetPassword = function ResetPassword(props) {
                       id: "email",
                       type: "email",
                       name: "email",
-                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('form-control', {
-                        'is-invalid': 'email' in errors
+                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("form-control", {
+                        "is-invalid": "email" in errors
                       }),
                       placeholder: "Enter email",
                       required: true,
@@ -7378,8 +7382,8 @@ var ResetPassword = function ResetPassword(props) {
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
                       id: "password",
                       type: "password",
-                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('form-control', {
-                        'is-invalid': 'password' in errors
+                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("form-control", {
+                        "is-invalid": "password" in errors
                       }),
                       name: "password",
                       placeholder: "Enter password",
@@ -7401,8 +7405,8 @@ var ResetPassword = function ResetPassword(props) {
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
                       id: "password_confirmation",
                       type: "password",
-                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('form-control', {
-                        'is-invalid': 'password_confirmation' in errors
+                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("form-control", {
+                        "is-invalid": "password_confirmation" in errors
                       }),
                       name: "password_confirmation",
                       placeholder: "Confirm password",
@@ -7420,8 +7424,8 @@ var ResetPassword = function ResetPassword(props) {
                     className: "form-group text-center",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
                       type: "submit",
-                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()('btn btn-primary', {
-                        'btn-loading': loading
+                      className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("btn btn-primary", {
+                        "btn-loading": loading
                       }),
                       children: "Reset Password"
                     })
