@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Http from "../Http";
 import { useForm } from "react-hook-form";
+import Dropdown from "../components/Dropdown";
 
 const api = "/api/v1/article";
+
+const options = [
+    { value: "1", label: "Tecnología" },
+    { value: "2", label: "Entretenimiento" },
+    { value: "3", label: "Musica" },
+    { value: "4", label: "Moda" },
+    { value: "5", label: "Deportes" },
+];
 
 const Dashboard = () => {
     const { register, handleSubmit, watch, errors } = useForm();
@@ -13,7 +22,7 @@ const Dashboard = () => {
         title: "",
         image_url: "",
         slug: "",
-        cat_id: "",
+        cat_id: {},
     });
 
     useEffect(() => {
@@ -54,7 +63,7 @@ const Dashboard = () => {
                     title: "",
                     image_url: "",
                     slug: "",
-                    cat_id: "",
+                    cat_id: {},
                 });
                 setError(false);
             })
@@ -97,6 +106,7 @@ const Dashboard = () => {
                                     required
                                     onChange={handleChange}
                                     value={stateForm.title}
+                                    maxLength={100}
                                     ref={register({ required: true })}
                                 />
                                 {errors.title && (
@@ -132,33 +142,40 @@ const Dashboard = () => {
                                     className="form-control mr-3"
                                     placeholder=""
                                     onChange={handleChange}
+                                    maxLength={70}
                                     value={stateForm.image_url}
                                     ref={register()}
                                 />
                             </div>
-                            <div className="form-group">
-                                <label htmlFor="slug">Slug</label>
-                                <input
-                                    id="slug"
-                                    name="slug"
-                                    className="form-control mr-3"
-                                    placeholder="Nice!"
-                                    onChange={handleChange}
-                                    value={stateForm.slug}
-                                    ref={register()}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="cat_id">Category</label>
-                                <input
-                                    id="cat_id"
-                                    name="cat_id"
-                                    className="form-control mr-3"
-                                    placeholder="Nice!"
-                                    onChange={handleChange}
-                                    value={stateForm.cat_id}
-                                    ref={register()}
-                                />
+                            <div className="row">
+                                <div className="col">
+                                    <div className="form-group">
+                                        <label htmlFor="slug">Slug</label>
+                                        <input
+                                            id="slug"
+                                            name="slug"
+                                            className="form-control mr-3"
+                                            placeholder="Nice!"
+                                            maxLength={12}
+                                            onChange={handleChange}
+                                            value={stateForm.slug}
+                                            ref={register()}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col">
+                                    <label htmlFor="category">
+                                        Select a Category
+                                    </label>
+                                    <div className="form-group">
+                                        <Dropdown
+                                            title="Category"
+                                            options={options}
+                                            setStateForm={setStateForm}
+                                            stateForm={stateForm}
+                                        />
+                                    </div>
+                                </div>
                             </div>
                             <button
                                 type="submit"
@@ -206,8 +223,19 @@ const Dashboard = () => {
                                                     alt={article.article.slug}
                                                 ></img>
                                             </td>
-                                            <td>{article.article.slug}</td>
-                                            <td>{article.article.cat_id}</td>
+                                            <td>
+                                                <span class="badge badge-success">
+                                                    {article.article.slug}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-warning">
+                                                    {
+                                                        article.article.cat_id
+                                                            .label
+                                                    }
+                                                </span>
+                                            </td>
                                             <td>
                                                 <button
                                                     type="button"
