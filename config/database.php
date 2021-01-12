@@ -93,6 +93,7 @@ return [
 
         'mongodb' => [
             'driver' => 'mongodb',
+            'dsn' => 'mongodb+srv://user_023_laravel:jPUdo6L1WypRBTDQ@Cluster0.pi2js.mongodb.net/blogdb?retryWrites=true&w=majority',
             'host' => env('DB_HOST', 'localhost'),
             'port' => env('DB_PORT', 27017),
             'database' => env('DB_DATABASE'),
