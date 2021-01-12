@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Custom\Hasher;
 class ArticleResource extends ApiResource
 {
     /**

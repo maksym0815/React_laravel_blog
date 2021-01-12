@@ -1,62 +1,122 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Laravel React MongoDB Blog App
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+An example Blog App built with Laravel, React and MongoDB. It includes:
 
-## About Laravel
+-   An auth API, using [tymon/jwt-auth](https://github.com/tymondesigns/jwt-auth) to manage the JSON Web Tokens.
+-   Routing with react-router (private, public and split routes).
+-   A base ApiController to help return.
+-   Bootstrap for styling.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Use it as a base for quick prototypes or to learn from. Suggestions, recommendations, and pull requests welcome!
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Demo Site
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+View a demo of the app at: SOON!.
 
-## Learning Laravel
+(Password resets will not be sent from this server. Data will be cleared on a regular basis.)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Development Environment
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+The backend built with Laravel. The frontend is 100% React.
 
-## Laravel Sponsors
+Database MongoDB.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## Set Up
 
-### Premium Partners
+#### Clone the repository:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
+```bash
+git clone https://github.com/maksym0815/React_laravel_blog.git
+```
 
-## Contributing
+#### Create your environment file:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+cp .env.example .env
+```
 
-## Code of Conduct
+_The app key is used to salt passwords. If you need to work with production data you'll want to use the same app key as defined in the .env file in production so password hashes match._
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+#### Update these settings in the .env file:
 
-## Security Vulnerabilities
+-   DB_DATABASE (your local database, i.e. "todo")
+-   DB_USERNAME (your local db username, i.e. "root")
+-   DB_PASSWORD (your local db password, i.e. "")
+-   HASHIDS_SALT (use the app key or match the variable used in production)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+#### Install PHP dependencies:
 
-## License
+```bash
+composer install
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+_If you don't have Composer installed, [instructions here](https://getcomposer.org/)._
+
+#### Generate an app key:
+
+```bash
+php artisan key:generate
+```
+
+#### Generate JWT keys for the .env file:
+
+```bash
+php artisan jwt:secret
+```
+
+#### Run the database migrations:
+
+```bash
+php artisan migrate
+```
+
+#### Install Javascript dependencies:
+
+```bash
+npm install
+```
+
+_If you don't have Node and NPM installed, [instructions here](https://www.npmjs.com/get-npm)._
+
+#### Run an initial build:
+
+```bash
+npm run dev
+```
+
+<<<<<<< HEAD
+
+```bash
+php artisan serve
+```
+
+=======
+
+> > > > > > > 115028b (fixed readme)
+
+### Additional Set Up Tips
+
+#### Database Seeding
+
+If you need sample data to work with, you can seed the database:
+
+```
+php artisan migrate:refresh --seed --force
+```
+
+#### Seeded User
+
+After seeding the database, you can log in with these credentials:
+
+Email: `user@test.dev`
+Password: `password`
+
+#### Email Driver
+
+Laravel sends emails for password resets. The default for MAIL_DRIVER in .env.example is log. You can view logged emails in storage/logs/laravel.log.
+
+## Other Notes
+
+**Laravel Docs:**
+
+[https://laravel.com/docs/](https://laravel.com/docs/)
