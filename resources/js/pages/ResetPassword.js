@@ -33,13 +33,7 @@ const ResetPassword = (props) => {
     };
 
     const getResetToken = () => {
-        const params = new URLSearchParams(props.location.search);
-        if (params.has("token")) {
-            return params.get("token");
-        }
-        const qookie = document.cookie.split(";");
-        console.log(qookie);
-        return document.cookie.replace("XSRF-TOKEN=", "");
+        return window.localStorage.getItem("access_token");
     };
 
     const handleChange = (e) => {

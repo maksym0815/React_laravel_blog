@@ -15877,10 +15877,34 @@ var options = [{
 }, {
   value: "5",
   label: "Sports"
+}, {
+  value: "6",
+  label: "Arts"
+}, {
+  value: "7",
+  label: "Travel"
+}, {
+  value: "8",
+  label: "Literature"
+}, {
+  value: "9",
+  label: "Science"
+}, {
+  value: "10",
+  label: "Politics"
+}, {
+  value: "11",
+  label: "Economy"
+}, {
+  value: "12",
+  label: "Nature"
 }];
 
 var Dashboard = function Dashboard() {
   var _jsx2, _stateForm$cat_id$lab, _stateForm$cat_id;
+
+  var session = JSON.parse(window.localStorage.getItem("user"));
+  var id = session.id;
 
   var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_3__.useForm)(),
       register = _useForm.register,
@@ -16206,7 +16230,9 @@ var Dashboard = function Dashboard() {
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
                       type: "button",
                       className: "badge badge-info",
-                      onClick: closeArticle,
+                      onClick: article.user_id === id ? closeArticle : function () {
+                        return console.log("Not an owner");
+                      },
                       "data-key": article.id,
                       children: "Approve"
                     })
@@ -16214,7 +16240,9 @@ var Dashboard = function Dashboard() {
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
                       type: "button",
                       className: "badge badge-danger",
-                      onClick: deleteArticle,
+                      onClick: article.user_id === id ? deleteArticle : function () {
+                        return console.log("Not an owner");
+                      },
                       "data-key": article.id,
                       children: "Delete"
                     })
@@ -16222,8 +16250,10 @@ var Dashboard = function Dashboard() {
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
                       type: "button",
                       className: "badge badge-dark",
-                      onClick: function onClick() {
+                      onClick: article.user_id === id ? function () {
                         return editArticle(article);
+                      } : function () {
+                        return console.log("Not an owner");
                       },
                       "data-key": article.id,
                       children: "Edit"
@@ -17502,15 +17532,7 @@ var ResetPassword = function ResetPassword(props) {
   };
 
   var getResetToken = function getResetToken() {
-    var params = new URLSearchParams(props.location.search);
-
-    if (params.has("token")) {
-      return params.get("token");
-    }
-
-    var qookie = document.cookie.split(";");
-    console.log(qookie);
-    return document.cookie.replace("XSRF-TOKEN=", "");
+    return window.localStorage.getItem("access_token");
   };
 
   var handleChange = function handleChange(e) {

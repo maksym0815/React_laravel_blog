@@ -12,9 +12,18 @@ const options = [
     { value: "3", label: "Music" },
     { value: "4", label: "Fashion" },
     { value: "5", label: "Sports" },
+    { value: "6", label: "Arts" },
+    { value: "7", label: "Travel" },
+    { value: "8", label: "Literature" },
+    { value: "9", label: "Science" },
+    { value: "10", label: "Politics" },
+    { value: "11", label: "Economy" },
+    { value: "12", label: "Nature" },
 ];
 
 const Dashboard = () => {
+    const session = JSON.parse(window.localStorage.getItem("user"));
+    const { id } = session;
     const { register, handleSubmit, watch, errors } = useForm();
     const [dataState, setData] = useState([]);
     const [error, setError] = useState(false);
@@ -318,7 +327,14 @@ const Dashboard = () => {
                                                 <span
                                                     type="button"
                                                     className="badge badge-info"
-                                                    onClick={closeArticle}
+                                                    onClick={
+                                                        article.user_id === id
+                                                            ? closeArticle
+                                                            : () =>
+                                                                  console.log(
+                                                                      "Not an owner"
+                                                                  )
+                                                    }
                                                     data-key={article.id}
                                                 >
                                                     Approve
@@ -328,7 +344,14 @@ const Dashboard = () => {
                                                 <span
                                                     type="button"
                                                     className="badge badge-danger"
-                                                    onClick={deleteArticle}
+                                                    onClick={
+                                                        article.user_id === id
+                                                            ? deleteArticle
+                                                            : () =>
+                                                                  console.log(
+                                                                      "Not an owner"
+                                                                  )
+                                                    }
                                                     data-key={article.id}
                                                 >
                                                     Delete
@@ -338,8 +361,16 @@ const Dashboard = () => {
                                                 <span
                                                     type="button"
                                                     className="badge badge-dark"
-                                                    onClick={() =>
-                                                        editArticle(article)
+                                                    onClick={
+                                                        article.user_id === id
+                                                            ? () =>
+                                                                  editArticle(
+                                                                      article
+                                                                  )
+                                                            : () =>
+                                                                  console.log(
+                                                                      "Not an owner"
+                                                                  )
                                                     }
                                                     data-key={article.id}
                                                 >

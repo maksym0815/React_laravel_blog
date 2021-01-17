@@ -23,10 +23,8 @@ class ArticleController extends ApiController
         if (!$user = auth()->setRequest($request)->user()) {
             return $this->responseUnauthorized();
         }
-
         //$collection = Article::where('user_id', $user->id);
         $collection = Article::get();
-        //dd($collection);
         // Check query string filters.
         if ($status = $request->query('status')) {
             if ('open' === $status || 'closed' === $status) {
