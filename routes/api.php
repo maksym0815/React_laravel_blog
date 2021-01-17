@@ -30,10 +30,10 @@ Route::group([
     'prefix' => 'v1'
 ], function ($router) {
     Route::apiResource('article', 'ArticleController');
+    Route::apiResource('like', 'LikesController');
 });
 
 // Not Found
 Route::fallback(function(){
     return response()->json(['message' => 'Resource not found.'], 404);
 });
-

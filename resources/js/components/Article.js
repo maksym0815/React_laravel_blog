@@ -6,12 +6,28 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Article = ({ article }) => {
     const { title, content, image_url, created_at, slug } = article;
     const [like, setLike] = useState(false);
+    const [error, setError] = useState(false);
+
     const toggle = () => {
         setLike(!like);
+        if (like) handleLike();
     };
-    const handleLike = () => {};
+    const handleLike = async () => {
+        /* Http.post()
+            .then(({ data }) => {
+                setError(false);
+            })
+            .catch(() => {
+                setError("Sorry, there was an error saving your article.");
+            });*/
+    };
     return (
         <div className="card mb-3">
+            {error && (
+                <div className="alert alert-warning" role="alert">
+                    {error}
+                </div>
+            )}
             <img className="card-img-top" src={image_url} alt={slug} />
             <div className="card-body">
                 <h5 className="card-title">{title}</h5>

@@ -59,23 +59,20 @@ const Archive = () => {
 
     const deleteArticle = (e) => {
         const { key } = e.target.dataset;
-
         Http.delete(`${api}/${key}`)
             .then((response) => {
+                console.log(key);
+                console.log(response);
                 if (response.status === 204) {
-                    const index = responseState.findIndex(
-                        (article) =>
-                            parseInt(article.id, 10) === parseInt(key, 10)
+                    const updateState = responseState.filter(
+                        (article) => article.id !== key
                     );
-                    const update = [
-                        ...articles.slice(0, index),
-                        ...articles.slice(index + 1),
-                    ];
-                    setResponse(update);
+                    setResponseState(updateState);
+                    console.log("Articles:", updateState);
                 }
             })
-            .catch((error) => {
-                console.log(error);
+            .catch((errorResponse) => {
+                console.log(errorResponse);
                 setError("There was an error processing.");
             });
     };

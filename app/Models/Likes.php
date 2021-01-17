@@ -3,8 +3,9 @@
 namespace App\Models;
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 use App\Models\User;
+use App\Models\Article;
 
-class Article extends Eloquent
+class Likes extends Eloquent
 {
     protected $connection = 'mongodb';
     protected $collection = 'articles';
@@ -15,16 +16,11 @@ class Article extends Eloquent
      * @var array
      */
     protected $fillable = [
-        'id', 
-        'cat_id', 
-        'title', 
-        'slug',  
-        'content', 
-        'image_url', 
+        'article_id', 
         'created_at', 
         'updated_at', 
-        'status',
         'user_id',
+        'like'
     ];
 
     /**
@@ -34,6 +30,7 @@ class Article extends Eloquent
      */
     protected $casts = [
         'user_id' => 'string',
+        'article_id' => 'string',
     ];
 
     /**
@@ -44,5 +41,15 @@ class Article extends Eloquent
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+     /**
+     * A like belongs to an Article.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function article()
+    {
+        return $this->belongsTo(Article::class, 'article_id');
     }
 }
