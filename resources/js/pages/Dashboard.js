@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Http from "../Http";
 import { useForm } from "react-hook-form";
 import Dropdown from "../components/Dropdown";
+import swal from "sweetalert";
 
 const api = "/api/v1/article";
 
@@ -26,9 +27,11 @@ const Dashboard = () => {
     });
 
     useEffect(() => {
-        Http.get(`${api}?status=open`)
+        //Http.get(`${api}?status=open`)
+        Http.get(api)
             .then((response) => {
                 const { data } = response.data;
+                console.log(data);
                 setData(data);
                 setError(false);
             })
@@ -52,11 +55,8 @@ const Dashboard = () => {
     const addArticle = (article) => {
         Http.post(api, article)
             .then(({ data }) => {
-                const newItem = {
-                    id: data.id,
-                    article,
-                };
-                const allArticles = [newItem, ...dataState];
+                article = { id: data.id, ...article };
+                const allArticles = [article, ...dataState];
                 setData(allArticles);
                 setStateForm({
                     content: "",
@@ -87,6 +87,52 @@ const Dashboard = () => {
             .catch(() => {
                 setError("Sorry, there was an error saving your article.");
             });
+    };
+
+    const deleteArticle = (e) => {
+        const { key } = e.target.dataset;
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this article!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                Http.delete(`${api}/${key}`)
+                    .then((response) => {
+                        console.log(key);
+                        console.log(response);
+                        if (response.status === 204) {
+                            const updateState = dataState.filter(
+                                (article) => article.id !== key
+                            );
+                            setError(false);
+                            setData(updateState);
+                            console.log("Articles:", updateState);
+                            swal("The Article has been deleted!", {
+                                icon: "success",
+                            });
+                        } else {
+                            swal(
+                                "Unable to Delete!",
+                                "There was an error processing.",
+                                { icon: "warning" }
+                            );
+                        }
+                    })
+                    .catch((errorResponse) => {
+                        console.log(errorResponse);
+                        console.log(errorResponse);
+                        setError("There was an error processing.");
+                        swal(
+                            "Unable to Delete!",
+                            "There was an error processing.",
+                            { icon: "warning" }
+                        );
+                    });
+            }
+        });
     };
     return (
         <div className="container py-5">
@@ -203,49 +249,54 @@ const Dashboard = () => {
                                     <th>Image</th>
                                     <th>Slug</th>
                                     <th>Category</th>
-                                    <th>Action</th>
+                                    <th>Approve</th>
+                                    <th>Delete</th>
                                 </tr>
                                 {dataState.length > 0 &&
                                     dataState.map((article) => (
                                         <tr key={article.id}>
-                                            <td>{article.article.title}</td>
+                                            <td>{article.title}</td>
                                             <td>
-                                                {article.article.content
+                                                {article.content
                                                     .slice(0, 30)
                                                     .concat("...")}
                                             </td>
                                             <td>
                                                 <img
-                                                    src={
-                                                        article.article
-                                                            .image_url
-                                                    }
+                                                    src={article.image_url}
                                                     className="rounded mx-auto d-block"
-                                                    alt={article.article.slug}
+                                                    alt={article.slug}
                                                 ></img>
                                             </td>
                                             <td>
                                                 <span className="badge badge-success">
-                                                    {article.article.slug}
+                                                    {article.slug}
                                                 </span>
                                             </td>
                                             <td>
                                                 <span className="badge badge-warning">
-                                                    {
-                                                        article.article.cat_id
-                                                            .label
-                                                    }
+                                                    {article.cat_id.label}
                                                 </span>
                                             </td>
                                             <td>
-                                                <button
+                                                <span
                                                     type="button"
-                                                    className="btn btn-secondary btn-sm"
+                                                    className="badge badge-info"
                                                     onClick={closeArticle}
                                                     data-key={article.id}
                                                 >
                                                     Approve
-                                                </button>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span
+                                                    type="button"
+                                                    className="badge badge-danger"
+                                                    onClick={deleteArticle}
+                                                    data-key={article.id}
+                                                >
+                                                    Delete
+                                                </span>
                                             </td>
                                         </tr>
                                     ))}

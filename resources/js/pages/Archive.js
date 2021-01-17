@@ -57,25 +57,6 @@ const Archive = () => {
             });
     };
 
-    const deleteArticle = (e) => {
-        const { key } = e.target.dataset;
-        Http.delete(`${api}/${key}`)
-            .then((response) => {
-                console.log(key);
-                console.log(response);
-                if (response.status === 204) {
-                    const updateState = responseState.filter(
-                        (article) => article.id !== key
-                    );
-                    setResponseState(updateState);
-                    console.log("Articles:", updateState);
-                }
-            })
-            .catch((errorResponse) => {
-                console.log(errorResponse);
-                setError("There was an error processing.");
-            });
-    };
     return (
         <div className="container py-5">
             <h1 className="text-center mb-4">Article Archive</h1>
@@ -132,27 +113,15 @@ const Archive = () => {
                                                 </a>
 
                                                 <div className="container py-2">
-                                                    <div className="row mx-auto">
-                                                        <span className="badge badge-success">
+                                                    <div className="row">
+                                                        <span className="badge badge-success mx-auto">
                                                             {article?.slug}
                                                         </span>
-                                                        <span className="badge badge-warning">
+                                                        <span className="badge badge-warning mx-auto">
                                                             {
                                                                 article?.cat_id
                                                                     ?.label
                                                             }
-                                                        </span>
-                                                        <span
-                                                            type="button"
-                                                            className="badge badge-danger mx-2"
-                                                            onClick={
-                                                                deleteArticle
-                                                            }
-                                                            data-key={
-                                                                article.id
-                                                            }
-                                                        >
-                                                            Delete
                                                         </span>
                                                     </div>
                                                 </div>
