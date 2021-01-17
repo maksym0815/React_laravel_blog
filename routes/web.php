@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MongoTest;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,13 +12,6 @@ use App\Http\Controllers\MongoTest;
 | contains the "web" middleware group. Now create something great!
 |
 */
-/*
-Route::get('/mongo', [MongoTest::class, 'mongoConnect']);
-Route::get('/', function () {
-    return view('welcome');
-});
-*/
-
 
 // Named route required for SendsPasswordResetEmails.
 Route::get('reset-password', function() {

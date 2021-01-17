@@ -53,23 +53,53 @@ const Dashboard = () => {
     };
 
     const addArticle = (article) => {
-        Http.post(api, article)
-            .then(({ data }) => {
-                article = { id: data.id, ...article };
-                const allArticles = [article, ...dataState];
-                setData(allArticles);
-                setStateForm({
-                    content: "",
-                    title: "",
-                    image_url: "",
-                    slug: "",
-                    cat_id: {},
+        if (article?.id) {
+            Http.patch(`${api}/${article.id}`, article)
+                .then((response) => {
+                    console.log(response);
+                    let filterArticles = dataState.filter(
+                        (art) => art.id !== article.id
+                    );
+                    filterArticles = [article, ...filterArticles];
+                    setData(filterArticles);
+                    setStateForm({
+                        content: "",
+                        title: "",
+                        image_url: "",
+                        slug: "",
+                        cat_id: {},
+                    });
+                    setError(false);
+                })
+                .catch(() => {
+                    setError("Sorry, there was an error saving your article.");
                 });
-                setError(false);
-            })
-            .catch(() => {
-                setError("Sorry, there was an error saving your article.");
-            });
+        } else {
+            Http.post(api, article)
+                .then(({ data }) => {
+                    article = { id: data.id, ...article };
+                    const allArticles = [article, ...dataState];
+                    setData(allArticles);
+                    setStateForm({
+                        content: "",
+                        title: "",
+                        image_url: "",
+                        slug: "",
+                        cat_id: {},
+                    });
+                    setError(false);
+                })
+                .catch(() => {
+                    setError("Sorry, there was an error saving your article.");
+                });
+        }
+    };
+
+    const editArticle = (article) => {
+        const { id } = article;
+        let form = dataState.filter((art) => art.id === id);
+        console.log(id, form);
+        setStateForm(form[0]);
     };
 
     const closeArticle = (e) => {
@@ -139,7 +169,9 @@ const Dashboard = () => {
             <div className="row">
                 <div className="col">
                     <div className="add-todos mb-5">
-                        <h1 className="text-center mb-4">Add an Article</h1>
+                        <h1 className="text-center mb-4">
+                            Add/Update an Article
+                        </h1>
                         <form method="post" onSubmit={handleSubmit(onSubmit)}>
                             <div className="form-group">
                                 <label htmlFor="title">Title </label>
@@ -216,7 +248,10 @@ const Dashboard = () => {
                                     </label>
                                     <div className="form-group">
                                         <Dropdown
-                                            title="Category"
+                                            title={
+                                                stateForm?.cat_id?.label ??
+                                                "Category"
+                                            }
                                             options={options}
                                             setStateForm={setStateForm}
                                             stateForm={stateForm}
@@ -251,6 +286,7 @@ const Dashboard = () => {
                                     <th>Category</th>
                                     <th>Approve</th>
                                     <th>Delete</th>
+                                    <th>Edit</th>
                                 </tr>
                                 {dataState.length > 0 &&
                                     dataState.map((article) => (
@@ -296,6 +332,18 @@ const Dashboard = () => {
                                                     data-key={article.id}
                                                 >
                                                     Delete
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span
+                                                    type="button"
+                                                    className="badge badge-dark"
+                                                    onClick={() =>
+                                                        editArticle(article)
+                                                    }
+                                                    data-key={article.id}
+                                                >
+                                                    Edit
                                                 </span>
                                             </td>
                                         </tr>

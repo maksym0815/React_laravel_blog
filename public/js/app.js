@@ -15440,6 +15440,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var Dropdown = function Dropdown(_ref) {
+  var _stateForm$cat_id$lab, _stateForm$cat_id;
+
   var title = _ref.title,
       options = _ref.options,
       setStateForm = _ref.setStateForm,
@@ -15488,7 +15490,7 @@ var Dropdown = function Dropdown(_ref) {
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap_DropdownButton__WEBPACK_IMPORTED_MODULE_3__.default, {
     id: "dropdown-item-button",
-    title: titleState,
+    title: (_stateForm$cat_id$lab = (_stateForm$cat_id = stateForm.cat_id) === null || _stateForm$cat_id === void 0 ? void 0 : _stateForm$cat_id.label) !== null && _stateForm$cat_id$lab !== void 0 ? _stateForm$cat_id$lab : titleState,
     onSelect: handleSelect,
     children: options.map(function (opt) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap_Dropdown__WEBPACK_IMPORTED_MODULE_4__.default.Item, {
@@ -15878,7 +15880,7 @@ var options = [{
 }];
 
 var Dashboard = function Dashboard() {
-  var _jsx2;
+  var _jsx2, _stateForm$cat_id$lab, _stateForm$cat_id;
 
   var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_3__.useForm)(),
       register = _useForm.register,
@@ -15931,24 +15933,56 @@ var Dashboard = function Dashboard() {
   };
 
   var addArticle = function addArticle(article) {
-    _Http__WEBPACK_IMPORTED_MODULE_2__.default.post(api, article).then(function (_ref) {
-      var data = _ref.data;
-      article = _objectSpread({
-        id: data.id
-      }, article);
-      var allArticles = [article].concat(_toConsumableArray(dataState));
-      setData(allArticles);
-      setStateForm({
-        content: "",
-        title: "",
-        image_url: "",
-        slug: "",
-        cat_id: {}
+    var _article;
+
+    if ((_article = article) !== null && _article !== void 0 && _article.id) {
+      _Http__WEBPACK_IMPORTED_MODULE_2__.default.patch("".concat(api, "/").concat(article.id), article).then(function (response) {
+        console.log(response);
+        var filterArticles = dataState.filter(function (art) {
+          return art.id !== article.id;
+        });
+        filterArticles = [article].concat(_toConsumableArray(filterArticles));
+        setData(filterArticles);
+        setStateForm({
+          content: "",
+          title: "",
+          image_url: "",
+          slug: "",
+          cat_id: {}
+        });
+        setError(false);
+      })["catch"](function () {
+        setError("Sorry, there was an error saving your article.");
       });
-      setError(false);
-    })["catch"](function () {
-      setError("Sorry, there was an error saving your article.");
+    } else {
+      _Http__WEBPACK_IMPORTED_MODULE_2__.default.post(api, article).then(function (_ref) {
+        var data = _ref.data;
+        article = _objectSpread({
+          id: data.id
+        }, article);
+        var allArticles = [article].concat(_toConsumableArray(dataState));
+        setData(allArticles);
+        setStateForm({
+          content: "",
+          title: "",
+          image_url: "",
+          slug: "",
+          cat_id: {}
+        });
+        setError(false);
+      })["catch"](function () {
+        setError("Sorry, there was an error saving your article.");
+      });
+    }
+  };
+
+  var editArticle = function editArticle(article) {
+    var id = article.id;
+    var form = dataState.filter(function (art) {
+      return art.id === id;
     });
+    console.log(id, form);
+    setStateForm(form[0]);
   };
 
   var closeArticle = function closeArticle(e) {
@@ -16018,7 +16052,7 @@ var Dashboard = function Dashboard() {
           className: "add-todos mb-5",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h1", {
             className: "text-center mb-4",
-            children: "Add an Article"
+            children: "Add/Update an Article"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", {
             method: "post",
             onSubmit: handleSubmit(onSubmit),
@@ -16100,7 +16134,7 @@ var Dashboard = function Dashboard() {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
                   className: "form-group",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_Dropdown__WEBPACK_IMPORTED_MODULE_4__.default, {
-                    title: "Category",
+                    title: (_stateForm$cat_id$lab = stateForm === null || stateForm === void 0 ? void 0 : (_stateForm$cat_id = stateForm.cat_id) === null || _stateForm$cat_id === void 0 ? void 0 : _stateForm$cat_id.label) !== null && _stateForm$cat_id$lab !== void 0 ? _stateForm$cat_id$lab : "Category",
                     options: options,
                     setStateForm: setStateForm,
                     stateForm: stateForm
@@ -16143,6 +16177,8 @@ var Dashboard = function Dashboard() {
                   children: "Approve"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
                   children: "Delete"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+                  children: "Edit"
                 })]
               }), dataState.length > 0 && dataState.map(function (article) {
                 return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
@@ -16181,6 +16217,16 @@ var Dashboard = function Dashboard() {
                       onClick: deleteArticle,
                       "data-key": article.id,
                       children: "Delete"
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                      type: "button",
+                      className: "badge badge-dark",
+                      onClick: function onClick() {
+                        return editArticle(article);
+                      },
+                      "data-key": article.id,
+                      children: "Edit"
                     })
                   })]
                 }, article.id);

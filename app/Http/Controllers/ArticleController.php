@@ -125,7 +125,6 @@ class ArticleController extends ApiController
         // Validates data.
         $validator = Validator::make($request->all(), [
             'content' => 'string',
-            'status' => 'in:closed,open',
             'title' => 'string',
             'slug' => 'string',
             'image_url' => 'string',

@@ -17,7 +17,7 @@ const Dropdown = ({ title, options, setStateForm, stateForm }) => {
     return (
         <DropdownButton
             id="dropdown-item-button"
-            title={titleState}
+            title={stateForm.cat_id?.label ?? titleState}
             onSelect={handleSelect}
         >
             {options.map((opt) => (
