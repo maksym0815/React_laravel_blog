@@ -1,25 +1,58 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeartBroken } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Http from "../Http";
+
+const api = "/api/v1/like";
 
 const Article = ({ article }) => {
-    const { title, content, image_url, created_at, slug } = article;
+    const { id, title, content, image_url, created_at, slug } = article;
     const [like, setLike] = useState(false);
     const [error, setError] = useState(false);
+    const [dataState, setData] = useState({});
+
+    useEffect(() => {
+        if (id) {
+            Http.get(`${api}/${id}`)
+                .then((response) => {
+                    const { data } = response.data;
+                    console.log(data);
+                    setData(data);
+                    setLike(data?.like ?? false);
+                    setError(false);
+                })
+                .catch(() => {
+                    setError("Unable to fetch data.");
+                    setLike(false);
+                });
+        }
+    }, [id]);
 
     const toggle = () => {
         setLike(!like);
-        if (like) handleLike();
-    };
-    const handleLike = async () => {
-        /* Http.post()
-            .then(({ data }) => {
-                setError(false);
-            })
-            .catch(() => {
-                setError("Sorry, there was an error saving your article.");
-            });*/
+        setData({ like: !like, ...dataState });
+        let objRequest = { like: !like, article_id: id, ...dataState };
+
+        if (dataState?.id) {
+            Http.patch(`${api}/${dataState.id}`, objRequest)
+                .then((response) => {
+                    console.log(response);
+                    setError(false);
+                })
+                .catch(() => {
+                    setError("Sorry, there was an error saving your article.");
+                });
+        } else {
+            Http.post(api, objRequest)
+                .then(({ response }) => {
+                    setData({ id: response.id, ...dataState });
+                    setError(false);
+                })
+                .catch(() => {
+                    setError("Sorry, there was an error saving your article.");
+                });
+        }
     };
     return (
         <div className="card mb-3">
@@ -44,7 +77,7 @@ const Article = ({ article }) => {
                             style={{ border: "1px solid black", width: "15%" }}
                             onClick={toggle}
                         >
-                            {!like ? (
+                            {like ? (
                                 <FontAwesomeIcon icon={faHeart} />
                             ) : (
                                 <FontAwesomeIcon icon={faHeartBroken} />

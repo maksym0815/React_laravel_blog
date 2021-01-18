@@ -8,7 +8,7 @@ use App\Models\Article;
 class Likes extends Eloquent
 {
     protected $connection = 'mongodb';
-    protected $collection = 'articles';
+    protected $collection = 'likes';
     
     /**
      * The attributes that are mass assignable.

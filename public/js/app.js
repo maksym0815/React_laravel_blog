@@ -15269,18 +15269,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
-/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+/* harmony import */ var _Http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Http */ "./resources/js/Http.js");
 
 
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -15299,46 +15299,79 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+var api = "/api/v1/like";
+
 var Article = function Article(_ref) {
   var article = _ref.article;
-  var title = article.title,
+  var id = article.id,
+      title = article.title,
       content = article.content,
       image_url = article.image_url,
       created_at = article.created_at,
       slug = article.slug;
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
       like = _useState2[0],
       setLike = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
       _useState4 = _slicedToArray(_useState3, 2),
       error = _useState4[0],
       setError = _useState4[1];
 
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({}),
+      _useState6 = _slicedToArray(_useState5, 2),
+      dataState = _useState6[0],
+      setData = _useState6[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    if (id) {
+      _Http__WEBPACK_IMPORTED_MODULE_3__.default.get("".concat(api, "/").concat(id)).then(function (response) {
+        var _data$like;
+
+        var data = response.data.data;
+        console.log(data);
+        setData(data);
+        setLike((_data$like = data === null || data === void 0 ? void 0 : data.like) !== null && _data$like !== void 0 ? _data$like : false);
+        setError(false);
+      })["catch"](function () {
+        setError("Unable to fetch data.");
+        setLike(false);
+      });
+    }
+  }, [id]);
+
   var toggle = function toggle() {
     setLike(!like);
-    if (like) handleLike();
+    setData(_objectSpread({
+      like: !like
+    }, dataState));
+
+    var objRequest = _objectSpread({
+      like: !like,
+      article_id: id
+    }, dataState);
+
+    if (dataState !== null && dataState !== void 0 && dataState.id) {
+      _Http__WEBPACK_IMPORTED_MODULE_3__.default.patch("".concat(api, "/").concat(dataState.id), objRequest).then(function (response) {
+        console.log(response);
+        setError(false);
+      })["catch"](function () {
+        setError("Sorry, there was an error saving your article.");
+      });
+    } else {
+      _Http__WEBPACK_IMPORTED_MODULE_3__.default.post(api, objRequest).then(function (_ref2) {
+        var response = _ref2.response;
+        setData(_objectSpread({
+          id: response.id
+        }, dataState));
+        setError(false);
+      })["catch"](function () {
+        setError("Sorry, there was an error saving your article.");
+      });
+    }
   };
-
-  var handleLike = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    return function handleLike() {
-      return _ref2.apply(this, arguments);
-    };
-  }();
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
     className: "card mb-3",
@@ -15377,9 +15410,9 @@ var Article = function Article(_ref) {
               width: "15%"
             },
             onClick: toggle,
-            children: !like ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__.FontAwesomeIcon, {
+            children: like ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
               icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__.faHeart
-            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__.FontAwesomeIcon, {
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
               icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__.faHeartBroken
             })
           })

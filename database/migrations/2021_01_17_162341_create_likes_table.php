@@ -19,7 +19,7 @@ class CreateLikesTable extends Migration
             $table->timestamps('updated_at');
             $table->string('user_id');
             $table->string('article_id');
-            $table->enum('like', [1, 0])->default(0);
+            $table->boolean('like')->default(false);
         });
     }
 
