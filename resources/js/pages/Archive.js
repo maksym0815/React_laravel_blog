@@ -74,7 +74,7 @@ const Archive = () => {
                         {articleState.id && articleState.content ? (
                             <>
                                 <Article article={articleState} />
-                                <CommentBox />
+                                <CommentBox article_id={articleState.id} />
                             </>
                         ) : (
                             <Alert />

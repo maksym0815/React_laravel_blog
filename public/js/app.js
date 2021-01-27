@@ -15447,25 +15447,16 @@ var Comment = function Comment(props) {
   var _props$comment = props.comment,
       name = _props$comment.name,
       message = _props$comment.message,
-      time = _props$comment.time;
+      created_at = _props$comment.created_at;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-    className: "media mb-3",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("img", {
-      className: "mr-3 bg-light rounded",
-      width: "48",
-      height: "48",
-      src: "https://api.adorable.io/avatars/48/".concat(name.toLowerCase(), "@adorable.io.png"),
-      alt: name
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-      className: "media-body p-2 shadow-sm rounded bg-light border",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("small", {
-        className: "float-right text-muted",
-        children: time
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h6", {
-        className: "mt-0 mb-1 text-muted",
-        children: name
-      }), message]
-    })]
+    className: "media-body p-2 shadow-sm rounded bg-light border",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("small", {
+      className: "float-right text-muted",
+      children: created_at
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h6", {
+      className: "mt-0 mb-1 text-muted",
+      children: name
+    }), message]
   });
 };
 
@@ -15508,9 +15499,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var api = "/api/v1/comment";
+var api = "/api/v1/comments";
 
-var CommentBox = function CommentBox() {
+var CommentBox = function CommentBox(props) {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState2 = _slicedToArray(_useState, 2),
       dataState = _useState2[0],
@@ -15521,8 +15512,9 @@ var CommentBox = function CommentBox() {
       error = _useState4[0],
       setError = _useState4[1];
 
+  var article_id = props.article_id;
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    _Http__WEBPACK_IMPORTED_MODULE_2__.default.get(api).then(function (response) {
+    _Http__WEBPACK_IMPORTED_MODULE_2__.default.get("".concat(api, "/").concat(article_id)).then(function (response) {
       var data = response.data.data;
       console.log(data);
       setData(data);
@@ -15542,7 +15534,8 @@ var CommentBox = function CommentBox() {
         className: "col",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_CommentForm__WEBPACK_IMPORTED_MODULE_3__.default, {
           dataState: dataState,
-          setData: setData
+          setData: setData,
+          article_id: article_id
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
         className: "col",
@@ -15603,7 +15596,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var api = "/api/v1/comment";
+var api = "/api/v1/comments";
 
 var CommentForm = function CommentForm(props) {
   var _jsx2;
@@ -15615,10 +15608,11 @@ var CommentForm = function CommentForm(props) {
 
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
     message: "",
-    name: ""
+    name: "",
+    article_id: props.article_id
   }),
       _useState4 = _slicedToArray(_useState3, 2),
-      comment = _useState4[0],
+      commentState = _useState4[0],
       setComment = _useState4[1];
 
   var setData = props.setData,
@@ -15628,26 +15622,29 @@ var CommentForm = function CommentForm(props) {
     var _e$target = e.target,
         name = _e$target.name,
         value = _e$target.value;
-    setComment(_objectSpread(_objectSpread({}, comment), {}, _defineProperty({}, name, value)));
+    setComment(_objectSpread(_objectSpread({}, commentState), {}, _defineProperty({}, name, value)));
   };
 
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
 
-    if ((comment === null || comment === void 0 ? void 0 : comment.content.length) > 0 && (comment === null || comment === void 0 ? void 0 : comment.name.length) > 0) {
-      _Http__WEBPACK_IMPORTED_MODULE_2__.default.post(api, comment).then(function (_ref) {
+    if (commentState.message.length > 0 && commentState.name.length > 0) {
+      _Http__WEBPACK_IMPORTED_MODULE_2__.default.post(api, commentState).then(function (_ref) {
         var data = _ref.data;
+        console.log("Data:", data);
+        var comment = data.comment;
 
         var commentResponse = _objectSpread({
-          id: data.id,
-          time: data === null || data === void 0 ? void 0 : data.time
-        }, comment);
+          id: comment._id,
+          created_at: comment === null || comment === void 0 ? void 0 : comment.created_at
+        }, commentState);
 
         var allComments = [commentResponse].concat(_toConsumableArray(dataState));
         setData(allComments);
         setComment({
           message: "",
-          name: ""
+          name: "",
+          article_id: props.article_id
         });
         setError(false);
       })["catch"](function () {
@@ -15674,7 +15671,7 @@ var CommentForm = function CommentForm(props) {
           placeholder: "Mr.William",
           required: true,
           onChange: handleChange,
-          value: comment.name,
+          value: commentState.name,
           maxLength: 30,
           minLength: 5
         })]
@@ -15686,7 +15683,7 @@ var CommentForm = function CommentForm(props) {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("textarea", (_jsx2 = {
           name: "message",
           id: "message"
-        }, _defineProperty(_jsx2, "name", "message"), _defineProperty(_jsx2, "required", true), _defineProperty(_jsx2, "maxLength", 200), _defineProperty(_jsx2, "className", "form-control mr-3"), _defineProperty(_jsx2, "placeholder", "Write your message right here..."), _defineProperty(_jsx2, "onChange", handleChange), _defineProperty(_jsx2, "value", comment.message), _jsx2))]
+        }, _defineProperty(_jsx2, "name", "message"), _defineProperty(_jsx2, "required", true), _defineProperty(_jsx2, "maxLength", 200), _defineProperty(_jsx2, "className", "form-control mr-3"), _defineProperty(_jsx2, "placeholder", "Write your message right here..."), _defineProperty(_jsx2, "onChange", handleChange), _defineProperty(_jsx2, "value", commentState.message), _jsx2))]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
         type: "submit",
         className: "btn btn-block btn-outline-primary",
@@ -15719,19 +15716,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var CommentList = function CommentList(props) {
+var CommentList = function CommentList(_ref) {
+  var comments = _ref.comments;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
     className: "commentList",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h5", {
       className: "text-muted mb-4",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
         className: "badge badge-success",
-        children: props.comments.length
-      }), " ", "Comment", props.comments.length > 0 ? "s" : ""]
-    }), props.comments.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+        children: comments === null || comments === void 0 ? void 0 : comments.length
+      }), " ", "Comment", (comments === null || comments === void 0 ? void 0 : comments.length) > 0 ? "s" : ""]
+    }), comments.length === 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
       className: "alert text-center alert-info",
       children: "Be the first to comment"
-    }) : null, props.comments.map(function (comment, index) {
+    }) : null, comments.map(function (comment, index) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Comment__WEBPACK_IMPORTED_MODULE_2__.default, {
         comment: comment
       }, index);
@@ -16086,7 +16084,9 @@ var Archive = function Archive() {
           children: articleState.id && articleState.content ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_Article__WEBPACK_IMPORTED_MODULE_6__.default, {
               article: articleState
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_CommentBox__WEBPACK_IMPORTED_MODULE_8__.default, {})]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_CommentBox__WEBPACK_IMPORTED_MODULE_8__.default, {
+              article_id: articleState.id
+            })]
           }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_Alert__WEBPACK_IMPORTED_MODULE_7__.default, {})
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
           className: "col-4",

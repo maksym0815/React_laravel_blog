@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import Http from "../Http";
 
-const api = "/api/v1/comment";
+const api = "/api/v1/comments";
 
 const CommentForm = (props) => {
     const [error, setError] = useState(false);
-    const [comment, setComment] = useState({
+    const [commentState, setComment] = useState({
         message: "",
         name: "",
+        article_id: props.article_id,
     });
 
     const { setData, dataState } = props;
@@ -15,26 +16,29 @@ const CommentForm = (props) => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setComment({
-            ...comment,
+            ...commentState,
             [name]: value,
         });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (comment?.content.length > 0 && comment?.name.length > 0) {
-            Http.post(api, comment)
+        if (commentState.message.length > 0 && commentState.name.length > 0) {
+            Http.post(api, commentState)
                 .then(({ data }) => {
+                    console.log("Data:", data);
+                    const { comment } = data;
                     let commentResponse = {
-                        id: data.id,
-                        time: data?.time,
-                        ...comment,
+                        id: comment._id,
+                        created_at: comment?.created_at,
+                        ...commentState,
                     };
                     const allComments = [commentResponse, ...dataState];
                     setData(allComments);
                     setComment({
                         message: "",
                         name: "",
+                        article_id: props.article_id,
                     });
                     setError(false);
                 })
@@ -57,7 +61,7 @@ const CommentForm = (props) => {
                         placeholder="Mr.William"
                         required
                         onChange={handleChange}
-                        value={comment.name}
+                        value={commentState.name}
                         maxLength={30}
                         minLength={5}
                     />
@@ -73,7 +77,7 @@ const CommentForm = (props) => {
                         className="form-control mr-3"
                         placeholder="Write your message right here..."
                         onChange={handleChange}
-                        value={comment.message}
+                        value={commentState.message}
                     />
                 </div>
                 <button

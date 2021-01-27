@@ -3,14 +3,16 @@ import Http from "../Http";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 
-const api = "/api/v1/comment";
+const api = "/api/v1/comments";
 
-const CommentBox = () => {
+const CommentBox = (props) => {
     const [dataState, setData] = useState([]);
     const [error, setError] = useState(false);
 
+    const { article_id } = props;
+
     useEffect(() => {
-        Http.get(api)
+        Http.get(`${api}/${article_id}`)
             .then((response) => {
                 const { data } = response.data;
                 console.log(data);
@@ -27,7 +29,11 @@ const CommentBox = () => {
             <h1 className="text-center mb-4">Comments</h1>
             <div className="row">
                 <div className="col">
-                    <CommentForm dataState={dataState} setData={setData} />
+                    <CommentForm
+                        dataState={dataState}
+                        setData={setData}
+                        article_id={article_id}
+                    />
                 </div>
                 <div className="col">
                     <CommentList comments={dataState} />

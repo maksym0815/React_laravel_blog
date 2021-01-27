@@ -31,6 +31,7 @@ Route::group([
 ], function ($router) {
     Route::apiResource('article', 'ArticleController');
     Route::apiResource('like', 'LikesController');
+    Route::apiResource('comments', 'CommentsController');
 });
 
 // Not Found
