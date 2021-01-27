@@ -5,6 +5,7 @@ import classNames from "classnames";
 import Http from "../Http";
 import Article from "../components/Article";
 import Alert from "../components/Alert";
+import CommentBox from "../components/CommentBox";
 
 const api = "/api/v1/article";
 
@@ -71,7 +72,10 @@ const Archive = () => {
                 <div className="row">
                     <div className="col-8">
                         {articleState.id && articleState.content ? (
-                            <Article article={articleState} />
+                            <>
+                                <Article article={articleState} />
+                                <CommentBox />
+                            </>
                         ) : (
                             <Alert />
                         )}
