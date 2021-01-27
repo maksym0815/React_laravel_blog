@@ -109,6 +109,7 @@ const ForgotPassword = (props) => {
                                                     id="email"
                                                     type="email"
                                                     name="email"
+                                                    maxLength={50}
                                                     className={classNames(
                                                         "form-control",
                                                         {

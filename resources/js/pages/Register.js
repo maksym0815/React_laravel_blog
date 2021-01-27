@@ -137,6 +137,7 @@ const Register = (props) => {
                                                 <input
                                                     id="name"
                                                     type="name"
+                                                    maxLength={100}
                                                     name="name"
                                                     value={stateForm.name}
                                                     className={classNames(
@@ -173,6 +174,7 @@ const Register = (props) => {
                                                     name="cellphone"
                                                     value={stateForm.cellphone}
                                                     maxLength={10}
+                                                    minLength={7}
                                                     className={classNames(
                                                         "form-control",
                                                         {
@@ -207,6 +209,7 @@ const Register = (props) => {
                                                     id="email"
                                                     type="email"
                                                     name="email"
+                                                    maxLength={50}
                                                     value={stateForm.email}
                                                     className={classNames(
                                                         "form-control",
@@ -239,6 +242,8 @@ const Register = (props) => {
                                                 <input
                                                     id="password"
                                                     type="password"
+                                                    maxLength={15}
+                                                    minLength={6}
                                                     value={stateForm.password}
                                                     className={classNames(
                                                         "form-control",
@@ -272,6 +277,8 @@ const Register = (props) => {
                                                 <input
                                                     id="password_confirmation"
                                                     type="password"
+                                                    maxLength={15}
+                                                    minLength={6}
                                                     value={
                                                         stateForm.password_confirmation
                                                     }

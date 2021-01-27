@@ -106,6 +106,7 @@ const Home = (props) => {
                                                 id="email"
                                                 type="email"
                                                 name="email"
+                                                maxLength={50}
                                                 className={classNames(
                                                     "form-control",
                                                     {
@@ -136,6 +137,8 @@ const Home = (props) => {
                                             <input
                                                 id="password"
                                                 type="password"
+                                                maxLength={15}
+                                                minLength={6}
                                                 className={classNames(
                                                     "form-control",
                                                     {

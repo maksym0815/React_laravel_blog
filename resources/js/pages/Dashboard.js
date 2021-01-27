@@ -19,6 +19,8 @@ const options = [
     { value: "10", label: "Politics" },
     { value: "11", label: "Economy" },
     { value: "12", label: "Nature" },
+    { value: "13", label: "Health" },
+    { value: "14", label: "Culture" },
 ];
 
 const Dashboard = () => {
@@ -44,7 +46,7 @@ const Dashboard = () => {
                 setData(data);
                 setError(false);
             })
-            .catch(() => {
+            .catch((err) => {
                 setError("Unable to fetch data.");
             });
     }, []);
@@ -194,6 +196,7 @@ const Dashboard = () => {
                                     onChange={handleChange}
                                     value={stateForm.title}
                                     maxLength={100}
+                                    minLength={5}
                                     ref={register({ required: true })}
                                 />
                                 {errors.title && (
@@ -208,6 +211,9 @@ const Dashboard = () => {
                                     name="content"
                                     id="content"
                                     name="content"
+                                    required
+                                    maxLength={1000}
+                                    minLength={20}
                                     className="form-control mr-3"
                                     placeholder="Build a Blog app..."
                                     onChange={handleChange}
@@ -227,6 +233,7 @@ const Dashboard = () => {
                                     id="image_url"
                                     type="url"
                                     name="image_url"
+                                    maxLength={100}
                                     className="form-control mr-3"
                                     placeholder=""
                                     onChange={handleChange}
@@ -242,6 +249,7 @@ const Dashboard = () => {
                                         <input
                                             id="slug"
                                             name="slug"
+                                            maxLength={20}
                                             className="form-control mr-3"
                                             placeholder="Nice!"
                                             maxLength={12}

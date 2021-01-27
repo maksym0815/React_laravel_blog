@@ -30,7 +30,7 @@ const Archive = () => {
                 setError(false);
                 setApiMore(apiM);
             })
-            .catch(() => {
+            .catch((err) => {
                 setError("Unable to fetch data.");
             });
     }, []);

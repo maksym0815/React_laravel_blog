@@ -33,7 +33,13 @@ const ResetPassword = (props) => {
     };
 
     const getResetToken = () => {
-        return window.localStorage.getItem("access_token");
+        //return window.localStorage.getItem("access_token");
+        const params = new URLSearchParams(props.location.search);
+        console.log(params);
+        if (params.has("token")) {
+            return params.get("token");
+        }
+        return "";
     };
 
     const handleChange = (e) => {
@@ -134,6 +140,7 @@ const ResetPassword = (props) => {
                                                     id="email"
                                                     type="email"
                                                     name="email"
+                                                    maxLength={50}
                                                     className={classNames(
                                                         "form-control",
                                                         {
@@ -173,6 +180,8 @@ const ResetPassword = (props) => {
                                                         }
                                                     )}
                                                     name="password"
+                                                    maxLength={15}
+                                                    minLength={8}
                                                     placeholder="Enter password"
                                                     required
                                                     onChange={handleChange}
@@ -195,6 +204,8 @@ const ResetPassword = (props) => {
                                                 <input
                                                     id="password_confirmation"
                                                     type="password"
+                                                    maxLength={15}
+                                                    minLength={8}
                                                     className={classNames(
                                                         "form-control",
                                                         {

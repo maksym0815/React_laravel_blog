@@ -90,6 +90,7 @@ const Login = (props) => {
                                                 id="email"
                                                 type="email"
                                                 name="email"
+                                                maxLength={50}
                                                 className={classNames(
                                                     "form-control",
                                                     {
@@ -130,6 +131,8 @@ const Login = (props) => {
                                                 )}
                                                 name="password"
                                                 placeholder="Enter password"
+                                                maxLength={15}
+                                                minLength={6}
                                                 required
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}

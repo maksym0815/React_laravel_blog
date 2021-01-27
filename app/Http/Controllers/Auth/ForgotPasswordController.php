@@ -52,7 +52,7 @@ class ForgotPasswordController extends APIController
         }
 
         $response = $this->sendResetLinkEmail($request);
-
+        
         if ($response) {
             return $this->responseSuccess('Email reset link sent.');
         } else {

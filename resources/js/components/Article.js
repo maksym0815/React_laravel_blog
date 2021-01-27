@@ -22,8 +22,8 @@ const Article = ({ article }) => {
                     setLike(data?.like ?? false);
                     setError(false);
                 })
-                .catch(() => {
-                    setError("Unable to fetch data.");
+                .catch((err) => {
+                    console.log(err);
                     setLike(false);
                 });
         }
@@ -40,8 +40,8 @@ const Article = ({ article }) => {
                     console.log(response);
                     setError(false);
                 })
-                .catch(() => {
-                    setError("Sorry, there was an error saving your article.");
+                .catch((err) => {
+                    console.log(err);
                 });
         } else {
             Http.post(api, objRequest)
@@ -49,8 +49,8 @@ const Article = ({ article }) => {
                     setData({ id: response.id, ...dataState });
                     setError(false);
                 })
-                .catch(() => {
-                    setError("Sorry, there was an error saving your article.");
+                .catch((err) => {
+                    console.log(err);
                 });
         }
     };

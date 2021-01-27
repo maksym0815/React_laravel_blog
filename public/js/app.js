@@ -15335,8 +15335,8 @@ var Article = function Article(_ref) {
         setData(data);
         setLike((_data$like = data === null || data === void 0 ? void 0 : data.like) !== null && _data$like !== void 0 ? _data$like : false);
         setError(false);
-      })["catch"](function () {
-        setError("Unable to fetch data.");
+      })["catch"](function (err) {
+        console.log(err);
         setLike(false);
       });
     }
@@ -15357,8 +15357,8 @@ var Article = function Article(_ref) {
       _Http__WEBPACK_IMPORTED_MODULE_3__.default.patch("".concat(api, "/").concat(dataState.id), objRequest).then(function (response) {
         console.log(response);
         setError(false);
-      })["catch"](function () {
-        setError("Sorry, there was an error saving your article.");
+      })["catch"](function (err) {
+        console.log(err);
       });
     } else {
       _Http__WEBPACK_IMPORTED_MODULE_3__.default.post(api, objRequest).then(function (_ref2) {
@@ -15367,8 +15367,8 @@ var Article = function Article(_ref) {
           id: response.id
         }, dataState));
         setError(false);
-      })["catch"](function () {
-        setError("Sorry, there was an error saving your article.");
+      })["catch"](function (err) {
+        console.log(err);
       });
     }
   };
@@ -15722,7 +15722,7 @@ var Archive = function Archive() {
       setLoading(false);
       setError(false);
       setApiMore(apiM);
-    })["catch"](function () {
+    })["catch"](function (err) {
       setError("Unable to fetch data.");
     });
   }, []);
@@ -15931,10 +15931,16 @@ var options = [{
 }, {
   value: "12",
   label: "Nature"
+}, {
+  value: "13",
+  label: "Health"
+}, {
+  value: "14",
+  label: "Culture"
 }];
 
 var Dashboard = function Dashboard() {
-  var _jsx2, _stateForm$cat_id$lab, _stateForm$cat_id;
+  var _jsx2, _jsx3, _jsx4, _stateForm$cat_id$lab, _stateForm$cat_id;
 
   var session = JSON.parse(window.localStorage.getItem("user"));
   var id = session.id;
@@ -15973,7 +15979,7 @@ var Dashboard = function Dashboard() {
       console.log(data);
       setData(data);
       setError(false);
-    })["catch"](function () {
+    })["catch"](function (err) {
       setError("Unable to fetch data.");
     });
   }, []);
@@ -16128,6 +16134,7 @@ var Dashboard = function Dashboard() {
                 onChange: handleChange,
                 value: stateForm.title,
                 maxLength: 100,
+                minLength: 5,
                 ref: register({
                   required: true
                 })
@@ -16143,7 +16150,7 @@ var Dashboard = function Dashboard() {
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("textarea", (_jsx2 = {
                 name: "content",
                 id: "content"
-              }, _defineProperty(_jsx2, "name", "content"), _defineProperty(_jsx2, "className", "form-control mr-3"), _defineProperty(_jsx2, "placeholder", "Build a Blog app..."), _defineProperty(_jsx2, "onChange", handleChange), _defineProperty(_jsx2, "value", stateForm.content), _defineProperty(_jsx2, "ref", register()), _jsx2)), errors.content && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+              }, _defineProperty(_jsx2, "name", "content"), _defineProperty(_jsx2, "required", true), _defineProperty(_jsx2, "maxLength", 1000), _defineProperty(_jsx2, "minLength", 20), _defineProperty(_jsx2, "className", "form-control mr-3"), _defineProperty(_jsx2, "placeholder", "Build a Blog app..."), _defineProperty(_jsx2, "onChange", handleChange), _defineProperty(_jsx2, "value", stateForm.content), _defineProperty(_jsx2, "ref", register()), _jsx2)), errors.content && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
                 className: "invalid-feedback",
                 children: "This field is required."
               })]
@@ -16152,17 +16159,15 @@ var Dashboard = function Dashboard() {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
                 htmlFor: "image_url",
                 children: "Image Url"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", (_jsx3 = {
                 id: "image_url",
                 type: "url",
                 name: "image_url",
+                maxLength: 100,
                 className: "form-control mr-3",
                 placeholder: "",
-                onChange: handleChange,
-                maxLength: 70,
-                value: stateForm.image_url,
-                ref: register()
-              })]
+                onChange: handleChange
+              }, _defineProperty(_jsx3, "maxLength", 70), _defineProperty(_jsx3, "value", stateForm.image_url), _defineProperty(_jsx3, "ref", register()), _jsx3))]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
               className: "row",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
@@ -16172,16 +16177,13 @@ var Dashboard = function Dashboard() {
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
                     htmlFor: "slug",
                     children: "Slug"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", (_jsx4 = {
                     id: "slug",
                     name: "slug",
+                    maxLength: 20,
                     className: "form-control mr-3",
-                    placeholder: "Nice!",
-                    maxLength: 12,
-                    onChange: handleChange,
-                    value: stateForm.slug,
-                    ref: register()
-                  })]
+                    placeholder: "Nice!"
+                  }, _defineProperty(_jsx4, "maxLength", 12), _defineProperty(_jsx4, "onChange", handleChange), _defineProperty(_jsx4, "value", stateForm.slug), _defineProperty(_jsx4, "ref", register()), _jsx4))]
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
                 className: "col",
@@ -16485,6 +16487,7 @@ var ForgotPassword = function ForgotPassword(props) {
                       id: "email",
                       type: "email",
                       name: "email",
+                      maxLength: 50,
                       className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("form-control", {
                         "is-invalid": "email" in errors
                       }),
@@ -16715,6 +16718,7 @@ var Home = function Home(props) {
                       id: "email",
                       type: "email",
                       name: "email",
+                      maxLength: 50,
                       className: classnames__WEBPACK_IMPORTED_MODULE_5___default()("form-control", {
                         "is-invalid": "email" in errors
                       }),
@@ -16738,6 +16742,8 @@ var Home = function Home(props) {
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
                       id: "password",
                       type: "password",
+                      maxLength: 15,
+                      minLength: 6,
                       className: classnames__WEBPACK_IMPORTED_MODULE_5___default()("form-control", {
                         "is-invalid": "password" in errors
                       }),
@@ -16967,6 +16973,7 @@ var Login = function Login(props) {
                       id: "email",
                       type: "email",
                       name: "email",
+                      maxLength: 50,
                       className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("form-control", {
                         "is-invalid": "email" in errors
                       }),
@@ -16995,6 +17002,8 @@ var Login = function Login(props) {
                       }),
                       name: "password",
                       placeholder: "Enter password",
+                      maxLength: 15,
+                      minLength: 6,
                       required: true,
                       onChange: handleChange,
                       onBlur: handleBlur,
@@ -17296,6 +17305,7 @@ var Register = function Register(props) {
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
                       id: "name",
                       type: "name",
+                      maxLength: 100,
                       name: "name",
                       value: stateForm.name,
                       className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("form-control", {
@@ -17324,6 +17334,7 @@ var Register = function Register(props) {
                       name: "cellphone",
                       value: stateForm.cellphone,
                       maxLength: 10,
+                      minLength: 7,
                       className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("form-control", {
                         "is-invalid": "cellphone" in errors
                       }),
@@ -17348,6 +17359,7 @@ var Register = function Register(props) {
                       id: "email",
                       type: "email",
                       name: "email",
+                      maxLength: 50,
                       value: stateForm.email,
                       className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("form-control", {
                         "is-invalid": "email" in errors
@@ -17372,6 +17384,8 @@ var Register = function Register(props) {
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
                       id: "password",
                       type: "password",
+                      maxLength: 15,
+                      minLength: 6,
                       value: stateForm.password,
                       className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("form-control", {
                         "is-invalid": "password" in errors
@@ -17397,6 +17411,8 @@ var Register = function Register(props) {
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
                       id: "password_confirmation",
                       type: "password",
+                      maxLength: 15,
+                      minLength: 6,
                       value: stateForm.password_confirmation,
                       className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("form-control", {
                         "is-invalid": "password_confirmation" in errors
@@ -17565,7 +17581,15 @@ var ResetPassword = function ResetPassword(props) {
   };
 
   var getResetToken = function getResetToken() {
-    return window.localStorage.getItem("access_token");
+    //return window.localStorage.getItem("access_token");
+    var params = new URLSearchParams(props.location.search);
+    console.log(params);
+
+    if (params.has("token")) {
+      return params.get("token");
+    }
+
+    return "";
   };
 
   var handleChange = function handleChange(e) {
@@ -17660,6 +17684,7 @@ var ResetPassword = function ResetPassword(props) {
                       id: "email",
                       type: "email",
                       name: "email",
+                      maxLength: 50,
                       className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("form-control", {
                         "is-invalid": "email" in errors
                       }),
@@ -17687,6 +17712,8 @@ var ResetPassword = function ResetPassword(props) {
                         "is-invalid": "password" in errors
                       }),
                       name: "password",
+                      maxLength: 15,
+                      minLength: 8,
                       placeholder: "Enter password",
                       required: true,
                       onChange: handleChange,
@@ -17706,6 +17733,8 @@ var ResetPassword = function ResetPassword(props) {
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
                       id: "password_confirmation",
                       type: "password",
+                      maxLength: 15,
+                      minLength: 8,
                       className: classnames__WEBPACK_IMPORTED_MODULE_4___default()("form-control", {
                         "is-invalid": "password_confirmation" in errors
                       }),
